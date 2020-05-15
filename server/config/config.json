@@ -1,0 +1,11 @@
+{
+    "port": 3000,
+    "mongoose": {
+        "uri": "mongodb+srv://marion:fcThvVwYS61tVZab@firstcluster-il34t.mongodb.net/cake_shop?retryWrites=true&w=majority",
+        "dbOptions": { 
+            "useMongoClient": true 
+        }
+    },
+    "secret": "adminsecret",
+    "session": { "session": false }
+}
