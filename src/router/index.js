@@ -44,7 +44,7 @@ Vue.use(VueRouter)
     path: '/cart',
     name: 'cart',
     component: cart,
-    props: true
+    //props: true
 }
 ]
 

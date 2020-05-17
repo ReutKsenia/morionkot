@@ -28,7 +28,7 @@
                 <p>{{ITEM[0].description}}</p>
                 <v-btn
                 color="#d1ab7f"
-                @click="addToCart(data)">Добавить в карзину</v-btn>
+                @click="addToCart">Добавить в карзину</v-btn>
         </v-flex>
     </v-layout>
 </v-container>
@@ -45,20 +45,15 @@ export default {
     data() {
         return {
             selectedWeight: {},
-            selectedPrice: {},
-            data: {
-                _id: String,
-                name: String,
-                images: Array,
-                description: String,
-                price: Number,
-                weight: String
+            cartItem: {
+                type: Object
             }
         }
     },
     computed: {
         ...mapGetters([
-            'ITEM'
+            'ITEM',
+            'CART'
         ])
     },
     methods: {
@@ -67,17 +62,32 @@ export default {
         ]),
         getKeyByValue(object, value) {
         var k = Object.keys(object).find(key => object[key] === value);
-        this.selectedPrice = this.ITEM[0].price[k];
-        this.data._id = this.ITEM[0]._id;
-        this.data.name = this.ITEM[0].name;
-        this.data.images = this.ITEM[0].image;
-        this.data.description = this.ITEM[0].description;
-        this.data.price = this.selectedPrice;
-        this.data.weight = this.selectedWeight;
+        console.log(k);
         return k;
         },
-        addToCart(data) {
-            this.ADD_TO_CART(data);
+        addToCart() {
+            this.cartItem = this.ITEM[0];
+            for(let i=0; i <= this.CART.length; i++){
+                console.log('c');
+                if(this.CART.length == 0) {
+                    this.$set(this.cartItem,  'quantity', 1);
+                    this.$set(this.cartItem,  'selectedPrice', this.ITEM[0].price[this.getKeyByValue(this.ITEM[0].weight, this.selectedWeight)]);
+                    this.$set(this.cartItem,  'selectedWeight', this.selectedWeight);
+                    this.ADD_TO_CART(this.cartItem);
+                    return;
+                }
+                else if(this.CART[i]== this.ITEM[0]){
+                    this.CART[i].quantity = this.CART[i].quantity + 1;
+                    return;
+                }
+                else if(i == this.CART.length){
+                    this.$set(this.cartItem,  'quantity', 1);
+                    this.$set(this.cartItem,  'selectedPrice', this.ITEM[0].price[this.getKeyByValue(this.ITEM[0].weight, this.selectedWeight)]);
+                    this.$set(this.cartItem,  'selectedWeight', this.selectedWeight);
+                    this.ADD_TO_CART(this.cartItem);
+                    return;
+                }
+            }
         }
     },
     mounted() {
@@ -86,12 +96,4 @@ export default {
 </script>
 
 <style lang="scss">
-// .carousel-container {
-//     display: flex;
-//     width: 500px;
-//     height: 500px;
-//     carousel {
-//         width: 100%;
-//     }
-// }
 </style>

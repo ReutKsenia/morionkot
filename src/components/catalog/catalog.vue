@@ -27,7 +27,6 @@
                 v-for="product in PRODUCTS"
                 :key="product._id"
                 :product_data="product"
-                @addToCart="addToCart"
                 @getItem="getItem"/>
         </div>
     </div>
@@ -55,12 +54,8 @@ export default {
     methods: {
         ...mapActions([
             'GET_PRODUCTS_FROM_DB',
-            'ADD_TO_CART',
             'GET_ITEM'
         ]),
-        addToCart(data) {
-            this.ADD_TO_CART(data)
-        },
         getItem(data) {
             this.GET_ITEM(data)
         }
