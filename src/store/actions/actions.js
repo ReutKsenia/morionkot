@@ -14,8 +14,11 @@ export default {
     },
     INCREMENT_CART_ITEM({commit}, index) {
         commit('INCREMENT', index)
-      },
-      DECREMENT_CART_ITEM({commit}, index) {
+    },
+    DECREMENT_CART_ITEM({commit}, index) {
         commit('DECREMENT', index)
-      },
+    },
+    ADD_SUM({commit}, sum) {
+        commit('SET_SUM', sum)
+    }
 }

@@ -57,7 +57,8 @@
         </tfoot>
     </template>
   </v-data-table>
-  <v-btn>
+  <v-btn style="margin: 2%; background-color: #524b98; color: white;"
+  to="/order">
       Перейти к оформлению заказа
   </v-btn>
     </div>
@@ -101,10 +102,13 @@ export default {
           result = result.reduce(function (sum, el) {
             return sum + el;
           })
+          this.ADD_SUM(result);
           return result;
         } else {
+          this.ADD_SUM(result);
           return 0
         }
+        
       }
     },
     filters: {
@@ -115,7 +119,8 @@ export default {
         ...mapActions([
             'DELETE_FROM_CART',
             'INCREMENT_CART_ITEM',
-            'DECREMENT_CART_ITEM'
+            'DECREMENT_CART_ITEM',
+            'ADD_SUM'
         ]),
         total(items){
             let t;

@@ -1,6 +1,6 @@
 <template>
 <v-container grid-list-md text-xs-center>
-    <v-layout row wrap>
+    <div class="d-flex flex-row mb-6">
         <v-flex xs6>
             <v-carousel>
                 <v-carousel-item
@@ -30,7 +30,7 @@
                 color="#d1ab7f"
                 @click="addToCart">Добавить в карзину</v-btn>
         </v-flex>
-    </v-layout>
+    </div>
 </v-container>
 </template>
 

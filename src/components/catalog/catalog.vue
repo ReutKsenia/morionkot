@@ -6,7 +6,7 @@
         <v-select
           :items="items"
           label="Сортировка по цене"
-          color="#d1ab7f"
+          color="#7876d8"
           dense
           outlined
         ></v-select>
@@ -15,7 +15,7 @@
         <v-select
           :items="items"
           label="Категория"
-          color="#d1ab7f"
+          color="#7876d8"
           dense
           outlined
         ></v-select>

@@ -12,5 +12,8 @@ export default {
     },
     ADMIN(state){
         return state.admin;
+    },
+    SUM(state){
+        return state.sum;
     }
 }

@@ -7,7 +7,9 @@ import item from '../components/product/product'
 import auth from '../components/authentication/auth'
 import adminPanel from '../components/admin-panel/admin'
 import cart from '../components/cart/cart'
-import * as Auth from '../components/authentication/index'
+import order from '../components/order/order'
+import orderOk from '../components/order/order-ok'
+import * as Auth from '../services/authService'
 
 Vue.use(VueRouter)
 
@@ -44,8 +46,17 @@ Vue.use(VueRouter)
     path: '/cart',
     name: 'cart',
     component: cart,
-    //props: true
-}
+  },
+  {
+    path: '/order',
+    name: 'order',
+    component: order
+  },
+  {
+    path: '/order-ok',
+    name: 'orderOk',
+    component: orderOk
+  }
 ]
 
 const router = new VueRouter({

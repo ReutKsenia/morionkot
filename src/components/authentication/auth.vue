@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import Authentication from './index'
+  import Authentication from '../../services/authService'
   import {mapActions} from 'vuex'
 
   export default {

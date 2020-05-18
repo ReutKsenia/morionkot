@@ -5,7 +5,7 @@ export default {
         state.products = products.products;
     },
     SET_CART: (state,  cartItem) => {
-        state.cart.push( cartItem);
+        state.cart.push(cartItem);
     },
     SET_ITEM: (state, item) => {
         if(state.item.length){
@@ -24,10 +24,13 @@ export default {
     },
     INCREMENT: (state, index) => {
         state.cart[index].quantity++
-      },
-      DECREMENT: (state, index) => {
+    },
+    DECREMENT: (state, index) => {
         if (state.cart[index].quantity > 1) {
           state.cart[index].quantity--
         }
+    },
+    SET_SUM: (state, sum) => {
+        state.sum = sum;
     }
 }

@@ -44,7 +44,7 @@
 			<v-tab>КОНТАКТЫ</v-tab>
 			<v-tab to="/cart">
 				<v-badge
-				color="#d1ab7f">
+				color="#7876d8">
 					<span slot="badge">{{CART.length}}</span>
 						<v-icon>shopping_cart</v-icon>
 				</v-badge>

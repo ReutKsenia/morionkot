@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(require('./routes/product'));
 app.use(require('./routes/auth'));
+app.use(require('./routes/order'));
 
 mongoose.Promise = global.Promise
 mongoose.connect(config.mongoose.uri, config.mongoose.dbOptions)
