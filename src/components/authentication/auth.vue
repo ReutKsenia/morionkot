@@ -2,26 +2,26 @@
   <div class="l-auth-container">
     <div class="l-auth">
       <v-form v-model="validLogin">
-        <v-text-field label="Username"
+        <v-text-field label="Логин"
                       v-model="credentials.login"
                       prepend-icon="account_box"
                       :rules="rules"
                       required
-                      color="light-blue lighten-1">
+                      color="deep-purple">
         </v-text-field>
 
-        <v-text-field label="Password"
+        <v-text-field label="Пароль"
                       v-model="credentials.password"
                       prepend-icon="lock"
                       :rules="rules"
                       :append-icon="loginPasswordVisible ? 'visibility' : 'visibility_off'"
                       @click:append="() => (loginPasswordVisible = !loginPasswordVisible)"
                       :type="loginPasswordVisible ? 'text' : 'password'"
-                      color="light-blue lighten-1"
+                      color="deep-purple"
                       required>
         </v-text-field>
 
-        <v-btn block color="light-blue lighten-1" @click.native="submitAuthentication()">Login</v-btn>
+        <v-btn block style="background-color: #524b98; color: white;" @click.native="submitAuthentication()">Войти</v-btn>
       </v-form>
     </div>
     <div>
@@ -38,7 +38,7 @@
 
 <script>
   import Authentication from '../../services/authService'
-  import {mapActions} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
 
   export default {
     data () {
@@ -55,13 +55,20 @@
         message: ''
       }
     },
+    computed: {
+        ...mapGetters([
+            'ADMIN'
+        ]),
+    },
     methods: {
       ...mapActions([
              'GET_ADMIN',
       ]),
       submitAuthentication () {
-        Authentication.authenticate(this, this.credentials, '/admin-panel');
-        if(Authentication.admin){ this.GET_ADMIN(Authentication.admin); }
+        Authentication.authenticate(this, this.credentials, '/admin-orders').then(() => {
+          console.log(Authentication.admin.authenticated);
+          this.GET_ADMIN(Authentication.admin.authenticated);
+        })
       },
     }
   }
@@ -69,14 +76,14 @@
 
 <style lang="scss">
   .l-auth {
-    background-color: $color;
+    background-color: #00000033;
     padding: 15px;
-    margin: 45px auto;
+    margin: 10% auto;
     min-width: 272px;
     max-width: 320px;
     animation: bounceIn 1s forwards ease;
     label, input, .icon {
-      color: #29b6f6!important;
+      color: rgb(82, 75, 152) !important;
     }
     .input-group__details {
       &:before {

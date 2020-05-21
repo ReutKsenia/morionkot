@@ -5,10 +5,14 @@ import Catalog from '../components/catalog/catalog'
 import mainPage from '../components/main-page/main-page'
 import item from '../components/product/product'
 import auth from '../components/authentication/auth'
-import adminPanel from '../components/admin-panel/admin'
+import adminOrders from '../components/admin-panel/admin-orders'
 import cart from '../components/cart/cart'
 import order from '../components/order/order'
 import orderOk from '../components/order/order-ok'
+import productCategory from '../components/admin-panel/product-category'
+import Settings from '../components/admin-panel/settings'
+import adminProducts from '../components/admin-panel/admin-products'
+import addProduct from '../components/admin-panel/add-product'
 import * as Auth from '../services/authService'
 
 Vue.use(VueRouter)
@@ -35,9 +39,41 @@ Vue.use(VueRouter)
       component: auth
   },
   {
-    path: '/admin-panel',
-    name: 'adminPanel',
-    component: adminPanel,
+    path: '/admin-orders',
+    name: 'adminOrders',
+    component: adminOrders,
+    meta: {
+      requiredAuth: true
+    }
+  },
+  {
+    path: '/admin-products',
+    name: 'adminProducts',
+    component: adminProducts,
+    meta: {
+      requiredAuth: true
+    }
+  },
+  {
+    path: '/add-product',
+    name: 'addProduct',
+    component: addProduct,
+    meta: {
+      requiredAuth: true
+    }
+  },
+  {
+    path: '/product-category',
+    name: 'productCategory',
+    component: productCategory,
+    meta: {
+      requiredAuth: true
+    }
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: Settings,
     meta: {
       requiredAuth: true
     }

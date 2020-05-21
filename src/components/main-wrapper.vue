@@ -1,25 +1,32 @@
 <template>
     <div class="main-wrapper">
-        <v-header v-if="!ADMIN"/>
+        <div v-if="!ADMIN">
+        <v-header/>
         <div class="main-wrapper-container">
             <keep-alive>
                 <router-view></router-view>
             </keep-alive>
         </div>
-        <v-footer v-if="!ADMIN"/>
+        <v-footer/>
+        </div>
+        <div v-else>
+            <admin-menu/>
+        </div>
     </div>
 </template>
 
 <script>
 import vHeader from './layouts/v-header'
 import vFooter from './layouts/v-footer'
+import adminMenu from './layouts/admin-menu'
 import {mapGetters} from 'vuex'
 
 export default {
     name: 'main-wrapper',
      components: {
          vHeader,
-         vFooter
+         vFooter,
+         adminMenu
      },
     props: {},
     data() {
@@ -34,17 +41,8 @@ export default {
     },
     methods: {},
     watch: {},
-    mounted() {
-        console.log('Hello i am alive!')
-    }
 }
 </script>
 
 <style lang="scss">
-    // .main-wrapper {
-    //     margin: 0 auto;
-    // }
-    // .main-wrapper-container {
-    //     margin-top: 100px;
-    // }
 </style>

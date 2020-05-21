@@ -15,5 +15,8 @@ export default {
     },
     SUM(state){
         return state.sum;
+    },
+    PRODUCT_CATEGORY(state){
+        return state.productsCategory;
     }
 }

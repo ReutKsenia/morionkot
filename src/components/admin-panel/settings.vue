@@ -1,15 +1,17 @@
 <template>
-    <div class="admin">
-        <h1>You Admin!</h1>
+    <div class="settings">
+        <h1>settings</h1>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'admin',
+    name: 'settings',
     props: {},
     data() {
-        return {}
+        return {
+
+        }
     },
     computed: {}
 }

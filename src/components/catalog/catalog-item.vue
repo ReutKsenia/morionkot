@@ -1,7 +1,7 @@
 <template>
 <v-card>
     <v-img contain="true"
-    :src=" require('../../assets/images/' + product_data.image[0])"
+    :src=" require('../../../server/static/images/' + product_data.image[0])"
     height="200px"
     width="300px"/>
     <v-card-title style="display:block;">{{product_data.name}}</v-card-title>
@@ -16,17 +16,6 @@
         @click="getItem">Выбрать вариант</v-btn>
     </v-card-actions>
 </v-card>
-    <!-- <div class="catalog-item">
-        <img class="catalog-item_img" :src=" require('../../assets/images/' + product_data.image[0])" alt="img"/>
-        <p class="catalog-item_name">{{product_data.name}}</p>
-        <p class="catalog-item_price">Price: {{product_data.price}}</p>
-        <button class="catalog-item_add_to_cart_btn btn" 
-        @click="addToCart">Add to cart</button>
-        <router-link :to="{name: 'item'}">
-            <button @click="getItem">Выбрать вариант</button>
-            
-        </router-link>
-    </div> -->
 </template>
 
 <script>
@@ -45,9 +34,6 @@ export default {
     },
     computed: {},
     methods: {
-    //    addToCart() {
-    //         this.$emit('addToCart',this.product_data)
-    //     },
         getItem() {
             this.$emit('getItem',this.product_data)
         }

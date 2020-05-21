@@ -4,6 +4,9 @@ export default {
     SET_PRODUCTS_TO_STATE: (state, products) => {
         state.products = products.products;
     },
+    SET_CATEGORY_TO_STATE: (state, productsCategory) => {
+        state.productsCategory = productsCategory.productsCategory;
+    },
     SET_CART: (state,  cartItem) => {
         state.cart.push(cartItem);
     },
