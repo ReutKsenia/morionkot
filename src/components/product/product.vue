@@ -6,7 +6,7 @@
                 <v-carousel-item
                 v-for="images in ITEM[0].image"
                 :key="images.index"
-                :src=" require('../../assets/images/' + images)"
+                :src=" require('../../../server/static/images/' + images)"
                 reverse-transition="fade-transition"
                 transition="fade-transition"
                 contain="true"/>

@@ -1,9 +1,9 @@
 <template>
-    <div class="add-product">
+    <div class="change-product">
         <v-container>
-            <h1 class="new_product">Новый товар</h1>
+            <h1 class="product_change">Изменить товар</h1>
             <v-form>
-                <h3 class="product_headers">Название товара</h3>
+                <h3 class="product_headers">Новое название товара</h3>
                     <v-text-field
                     v-model="newProduct.name"
                     :rules="rules.required"
@@ -73,6 +73,24 @@
                     ></v-select>
                     
                 </v-form>
+                <div class="images_list">
+                <v-card 
+                class="images_list_item"
+                v-for="image in ITEM[0].image"
+                :key="image">
+                    <v-img contain="true"
+                    :src=" require('../../../server/static/images/' + image)"
+                    height="100px"
+                    width="200px"/>
+                    <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn icon
+                @click="deleteImage(image)">
+                    <v-icon>delete</v-icon>
+                </v-btn>
+                </v-card-actions>
+                </v-card>
+                </div>
                 <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
                             <v-btn icon v-on="on" @click="addImage">
@@ -90,7 +108,7 @@
                         <v-card height="100px" width="200px" v-ripple v-if="!avatar[i-1]" class="grey lighten-3 mb-3">
                             <span>Нажмите, чтобы добавить картинку</span>
                         </v-card>
-                        <v-card height="100px" v-ripple v-else class="mb-3">
+                        <v-card height="100px" width="200px" v-ripple v-else class="mb-3">
                             <img height="100px" :src="avatar[i-1].imageURL" alt="avatar">
                         </v-card>
                         </div>
@@ -103,7 +121,7 @@
                         <v-btn class="primary" @click="uploadImage" :loading="saving">Сохранить картинки</v-btn>
                         </div>
                 </v-slide-x-transition>
-                <v-btn color="deep-purple" dark style="margin: 5%" @click="saveProduct()">Сохранить новый товар</v-btn>   
+                <v-btn color="deep-purple" dark style="margin: 5%" @click="chageProduct()">Сохранить новый товар</v-btn>   
         </v-container>
     </div>
 </template>
@@ -114,7 +132,7 @@ import imageProduct from './image-product'
 import productsService from '../../services/productsService'
 
 export default {
-    name: 'add-product',
+    name: 'change-product',
     components: {
         imageProduct: imageProduct,
     },
@@ -122,6 +140,7 @@ export default {
     data() {
         return {
             newProduct: {
+                _id: '',
                 name: '',
                 price: [],
                 weight: [],
@@ -154,7 +173,8 @@ export default {
   },
     computed: {
         ...mapGetters([
-            'PRODUCT_CATEGORY'
+            'PRODUCT_CATEGORY',
+            'ITEM'
         ]),
     },
     methods: {
@@ -197,14 +217,20 @@ export default {
       }
     },
 
-    saveProduct() {
-        productsService.addProduct(this.newProduct);
-        console.log('addProd')
+    chageProduct() {
+        productsService.changeProduct(this.newProduct);
+        console.log('change')
+    },
+    
+    deleteImage(image){
+        productsService.deleteImage(image, this.newProduct._id);
     }
 
     },
     mounted () {
       this.GET_CATEGORY_FROM_DB();
+      this.newProduct = this.ITEM[0];
+      this.countField = this.ITEM[0].price.length;
     }
 }
 </script>
@@ -216,5 +242,14 @@ export default {
 .product_headers {
     text-align: start;
     margin: 1%;
+}
+.images_list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+.images_list_item {
+    margin-bottom: 5%;
 }
 </style>

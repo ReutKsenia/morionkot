@@ -23,9 +23,12 @@
                 <v-card-subtitle style="display:block;">{{product.price[0]}} BUN</v-card-subtitle>
                 <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn icon>
+              <router-link tag="div" :to="{name: 'changeProduct'}">
+              <v-btn icon
+              @click.native ="changeItem(product)">
                 <v-icon>edit</v-icon>
               </v-btn>
+              </router-link>
               <v-btn icon
               @click="deleteItem(product)">
                 <v-icon>delete</v-icon>
@@ -62,8 +65,14 @@ export default {
         ]),
         deleteItem(data) {
             this.GET_ITEM(data);
-            productsService.deleteProduct(this.ITEM[0]);
-            this.GET_PRODUCTS_FROM_DB()
+            productsService.deleteProduct(this.ITEM[0]).then(() => {
+                this.GET_PRODUCTS_FROM_DB();
+            }
+            );  
+        },
+        changeItem(data) {
+            console.log('111');
+            this.GET_ITEM(data);
         }
     },
     mounted () {

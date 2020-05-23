@@ -19,5 +19,13 @@ export default {
 
   addProduct(product) {
     return api().post('add-product', product);
+  },
+
+  deleteImage(name, _id) {
+    return api().post('delete-image', {imageName: name, id: _id});
+  },
+
+  changeProduct(changeProduct) {
+    return api().post('change-product', changeProduct);
   }
 }

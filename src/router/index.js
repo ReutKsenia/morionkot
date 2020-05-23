@@ -13,6 +13,7 @@ import productCategory from '../components/admin-panel/product-category'
 import Settings from '../components/admin-panel/settings'
 import adminProducts from '../components/admin-panel/admin-products'
 import addProduct from '../components/admin-panel/add-product'
+import changeProduct from '../components/admin-panel/change-product'
 import * as Auth from '../services/authService'
 
 Vue.use(VueRouter)
@@ -58,6 +59,14 @@ Vue.use(VueRouter)
     path: '/add-product',
     name: 'addProduct',
     component: addProduct,
+    meta: {
+      requiredAuth: true
+    }
+  },
+  {
+    path: '/change-product',
+    name: 'changeProduct',
+    component: changeProduct,
     meta: {
       requiredAuth: true
     }

@@ -11,7 +11,7 @@
   <tbody>
     <tr v-for="(item,index) in items" :key="index">
       <td>
-        <img :src="require('../../assets/images/' + item.image[0])" style="height: 100px"/>
+        <img :src="require('../../../server/static/images/' + item.image[0])" style="height: 100px"/>
       </td>
       <td>{{ item.name }}
       </td>

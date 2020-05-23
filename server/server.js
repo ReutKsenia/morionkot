@@ -3,8 +3,7 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const config = require('./config/config.json')
-const { static } = require('express');
+const config = require('./config/config.json');
 
 const app = express();
 
@@ -14,7 +13,6 @@ app.use(cors());
 app.use(require('./routes/product'));
 app.use(require('./routes/auth'));
 app.use(require('./routes/order'));
-app.use('/images/', static('../server/static/images/'));
 
 mongoose.Promise = global.Promise
 mongoose.connect(config.mongoose.uri, config.mongoose.dbOptions)
