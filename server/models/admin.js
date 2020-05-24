@@ -13,7 +13,7 @@ const Admin = new Schema({
     }
 });
 
-Admin.pre('save', function (next) {
+Admin.pre('updateOne', function (next) {
     const admin = this;
     if (this.isModified('password') || this.isNew) {
       bcrypt.genSalt(10, (error, salt) => {

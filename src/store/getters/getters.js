@@ -18,5 +18,11 @@ export default {
     },
     PRODUCT_CATEGORY(state){
         return state.productsCategory;
+    },
+    COMMENTS(state){
+        return state.comments;
+    },
+    PRODUCTS_FROM_CATEGORY(state){
+        return state.productsFromCategory;
     }
 }

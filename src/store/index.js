@@ -17,7 +17,9 @@ export default new Vuex.Store({
       item: [],
       admin: false,
       sum: Number,
-      productsCategory: []
+      productsCategory: [],
+      comments: [],
+      productsFromCategory: [],
   },
   mutations,
   actions,

@@ -14,6 +14,7 @@ import Settings from '../components/admin-panel/settings'
 import adminProducts from '../components/admin-panel/admin-products'
 import addProduct from '../components/admin-panel/add-product'
 import changeProduct from '../components/admin-panel/change-product'
+import comments from '../components/comments/comments'
 import * as Auth from '../services/authService'
 
 Vue.use(VueRouter)
@@ -38,6 +39,11 @@ Vue.use(VueRouter)
       path: '/auth',
       name: 'auth',
       component: auth
+  },
+  {
+    path: '/comments',
+    name: 'comments',
+    component: comments
   },
   {
     path: '/admin-orders',

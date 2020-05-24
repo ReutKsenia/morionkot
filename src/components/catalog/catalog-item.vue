@@ -10,9 +10,7 @@
         <v-btn 
         color="#d1ab7f"
         to="/product"
-        style="color:white;
-        text-transform:none;
-        "
+        dark
         @click="getItem">Выбрать вариант</v-btn>
     </v-card-actions>
 </v-card>

@@ -27,5 +27,9 @@ export default {
 
   changeProduct(changeProduct) {
     return api().post('change-product', changeProduct);
+  }, 
+
+  fetchProductsFromCategory(categoryName) {
+    return api().post('product-from-category', {categoryName: categoryName});
   }
 }

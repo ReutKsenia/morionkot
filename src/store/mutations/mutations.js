@@ -35,5 +35,11 @@ export default {
     },
     SET_SUM: (state, sum) => {
         state.sum = sum;
+    },
+    SET_COMMENTS_TO_STATE: (state, comments) => {
+        state.comments = comments.comments;
+    },
+    SET_PRODUCTS_FROM_CATEGORY_TO_STATE: (state, products) => {
+        state.productsFromCategory = products.products
     }
 }
