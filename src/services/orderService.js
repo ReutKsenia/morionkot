@@ -1,7 +1,7 @@
 const config = require('../../server/config/config.json')
+import api from './api'
 
 import Axios from 'axios'
-//import router from '../router/index'
 
 export default {
   ord: { status: false },
@@ -10,7 +10,18 @@ export default {
     Axios.post(`http://localhost:${config.port}/addOrder`, {Order: order, Cart: cart})
         .then(() => {
           this.ord.status = true
-          //if (redirect) router.push(redirect)
         })
   },
+
+  fetchOrders() {
+    return api().get('orders')
+  },
+
+  deleteOrder(order) {
+    return api().post('delete-order', order);
+  },
+
+  getProductsFromCart(order) {
+    return api().post('product-from-cart', order)
+  }
 }

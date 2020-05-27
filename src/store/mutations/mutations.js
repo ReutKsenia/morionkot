@@ -41,5 +41,8 @@ export default {
     },
     SET_PRODUCTS_FROM_CATEGORY_TO_STATE: (state, products) => {
         state.productsFromCategory = products.products
+    },
+    SET_ORDERS_TO_STATE: (state, orders) => {
+        state.orders = orders.orders
     }
 }

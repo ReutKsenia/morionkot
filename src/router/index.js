@@ -15,6 +15,8 @@ import adminProducts from '../components/admin-panel/admin-products'
 import addProduct from '../components/admin-panel/add-product'
 import changeProduct from '../components/admin-panel/change-product'
 import comments from '../components/comments/comments'
+import about from '../components/about/about'
+import delivery from '../components/delivery/delivery'
 import * as Auth from '../services/authService'
 
 Vue.use(VueRouter)
@@ -107,6 +109,16 @@ Vue.use(VueRouter)
     path: '/order-ok',
     name: 'orderOk',
     component: orderOk
+  },
+  {
+    path: '/delivery',
+    name: 'delivery',
+    component: delivery
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: about
   }
 ]
 

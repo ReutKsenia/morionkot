@@ -27,8 +27,10 @@
                 <h3>Описание</h3>
                 <p>{{ITEM[0].description}}</p>
                 <v-btn
+                style="color: white"
                 color="#d1ab7f"
-                @click="addToCart">Добавить в карзину</v-btn>
+                @click="addToCart"
+                :disabled="!selectedWeight">Добавить в карзину</v-btn>
         </v-flex>
     </div>
 </v-container>
@@ -44,10 +46,10 @@ export default {
     props: {},
     data() {
         return {
-            selectedWeight: {},
+            selectedWeight: null,
             cartItem: {
                 type: Object
-            }
+            },
         }
     },
     computed: {

@@ -134,6 +134,7 @@ export default {
                 cost: this.SUM,
                 status: false,
                 payment_method: '',
+                products_id: []
             },
             rules: {
                 phone_number: [v => (v || '').match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/) ||                 
@@ -157,6 +158,9 @@ export default {
     methods: {
         addOrder () {
             this.details.cost = this.SUM;
+            // for(let i=0; i<this.CART.length; i++){
+            //     this.details.products_id.push(this.CART[0]._id)
+            // }
             AddOrder.add(this.details, this.CART);
       },
     }

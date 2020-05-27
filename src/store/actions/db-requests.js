@@ -1,5 +1,6 @@
 import ProductsService from '../../services/productsService'
 import CommentsService from '../../services/commentsService'
+import OrdersService from '../../services/orderService'
 
 export default {
     GET_PRODUCTS_FROM_DB({commit}){
@@ -42,6 +43,18 @@ export default {
         .then((comments) => {
             commit('SET_COMMENTS_TO_STATE', comments.data);
             return comments;
+        })
+        .catch((error) => {
+            console.log(error);
+            return error;
+        })
+    },
+    GET_ORDERS_FROM_DB({commit}){
+        return OrdersService.fetchOrders()
+        .then((orders) => {
+            console.log(orders)
+            commit('SET_ORDERS_TO_STATE', orders.data);
+            return orders;
         })
         .catch((error) => {
             console.log(error);

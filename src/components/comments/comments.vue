@@ -4,9 +4,9 @@
       <h1>Отзывы покупателей</h1>
       <v-form @submit.prevent="sendComment">
         <h4>Оставьте отзыв</h4>
-        <v-text-field v-model="username" label="Введите ваше имя" filled />
-        <v-text-field v-model="comment" label="Отзыв" filled />
-        <v-btn type="submit" color="#524b98" dark>Отправить</v-btn>
+        <v-text-field v-model="username" label="Введите ваше имя" filled color="deep-purple" :rules="rules.required"/>
+        <v-text-field v-model="comment" label="Отзыв" filled color="deep-purple" :rules="rules.required"/>
+        <v-btn type="submit" color="#524b98" style="color:white" :disabled="!comment">Отправить</v-btn>
       </v-form>
       <div
         v-for="comment in this.comments.slice().reverse()"
@@ -44,7 +44,10 @@ export default {
       username: "",
       comment: "",
       comments: [],
-      socket: io("localhost:3000")
+      socket: io("localhost:3000"),
+      rules: {
+                required: [v => !!v || 'Это поле является обязательным к заполнению'],
+            },
     };
   },
   computed: {

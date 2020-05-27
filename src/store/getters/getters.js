@@ -24,5 +24,8 @@ export default {
     },
     PRODUCTS_FROM_CATEGORY(state){
         return state.productsFromCategory;
+    },
+    ORDERS(state){
+        return state.orders;
     }
 }

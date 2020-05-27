@@ -20,6 +20,7 @@ export default new Vuex.Store({
       productsCategory: [],
       comments: [],
       productsFromCategory: [],
+      orders: []
   },
   mutations,
   actions,

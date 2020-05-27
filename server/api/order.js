@@ -15,12 +15,35 @@ api.addOrder = (order, cart) => (req, res) => {
         cart.create({product_id: req.body.Cart[i]._id, order_id: or._id, quantity: req.body.Cart[i].quantity, 
             selectedPrice: req.body.Cart[i].selectedPrice, selectedWeight: req.body.Cart[i].selectedWeight}), function(err){
                 if(err) return console.log(err);
-                else { console.log("Сохранен объект order", cart); res.sendStatus(200)}
-                
             }
         }
+        res.sendStatus(200)
     }
     });
 }
 
+api.deleteOrder = (order, cart) => (req, res) => {
+    order.remove({ _id: req.body._id}, function(err){
+        if(err) return console.log(err);
+        else{
+            cart.remove({ order_id: req.body._id }, function(err){
+                if(err) return console.log(err);
+                else res.sendStatus(200);
+            })
+        }
+    })
+}
+
+api.productsFromCart = (cart) => (req, res) => {
+    cart.find({ order_id: req.body._id}).populate('product_id').exec(function(err,products){
+        if(err){
+          res.sendStatus(500)
+        }
+        else{
+            console.log(products)
+            //res.sendStatus(200)
+          res.send({ products: products });
+        }
+    })
+}
 module.exports = api;

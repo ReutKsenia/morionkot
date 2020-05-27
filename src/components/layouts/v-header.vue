@@ -39,8 +39,8 @@
 			color="#d1ab7f">
 			<v-tab to="/">ГЛАВНАЯ</v-tab>
 			<v-tab to="/catalog">МЕНЮ</v-tab>
-			<v-tab>ДОСТАВКА</v-tab>
-			<v-tab>О НАС</v-tab>
+			<v-tab to="/delivery">ДОСТАВКА</v-tab>
+			<v-tab to="/about">О НАС</v-tab>
 			<v-tab to="/comments">ОТЗЫВЫ</v-tab>
 			<v-tab to="/cart">
 				<v-badge

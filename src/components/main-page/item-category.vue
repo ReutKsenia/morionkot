@@ -1,56 +1,71 @@
 <template>
-    <div class="item-category-area">
-        <div class="text-category-area">
-            <h1>Категории доступных товаров</h1>
-        </div>
-        <div class="row-item-category">
-            <div class="cake-item">
-                <div>
-                    <img src="../../assets/images/cake2.jpg"/>
-                </div>
+    <v-container class="item-category-area">
+    <h1>Категории доступных товаров</h1>
+    <v-layout row wrap class="text-category-area">
+        <v-flex class="cake-item">
+            <v-avatar
+            width="200px"
+            height="200px">
+                <img src="../../assets/images/cake2.jpg"/>
+            </v-avatar>
+            <v-flex>
                 <router-link :to="{name: 'catalog'}">
                     <h3>Торты</h3>
                 </router-link>
+            </v-flex>
+            <v-flex>
                 <p>
-                    kcamdcmadcmadcmao dcamdcmaaw
-                    dscasdcasdcasdcasdc
-                    Casdcadadedawf
+                    Великолепные торты на заказ в Минске от компании MorionKot
                 </p>
-            </div>
-            <div class="cake-item">
-                <div>
-                    <img src="../../assets/images/cheesecake.jpg"/>
-                </div>
+            </v-flex>
+        </v-flex>
+        <v-flex class="cake-item">
+            <v-avatar
+            width="200px"
+            height="200px">
+                <img src="../../assets/images/cheesecake.jpg"/>
+            </v-avatar>
+            <v-flex>
                 <router-link :to="{name: 'catalog'}">
                     <h3>Чизкейки</h3>
                 </router-link>
+            </v-flex>
+            <v-flex>
                 <p>
-                    kcamdcmadcmadcma odcamdcmaaw
-                    dscasdcasdcasdcasdc
-                    Casdcadadedawf
+                    Лучшие чизкейки на заказ в Минске от компании MorionKot
                 </p>
-            </div>
-            <div class="cake-item">
-                <div>
-                    <img src="../../assets/images/cake2.jpg"/>
-                </div>
+            </v-flex>
+        </v-flex>
+        <v-flex class="cake-item">
+            <v-avatar
+            width="200px"
+            height="200px">
+                <img src="../../assets/images/пирожное.jpg"/>
+            </v-avatar>
+            <v-flex>
                 <router-link :to="{name: 'catalog'}">
-                    <h3>Торты</h3>
+                    <h3>Пирожные</h3>
                 </router-link>
+            </v-flex>
+            <v-flex>
                 <p>
-                    kcamdcmadcmadcma odcamdcmaaw
-                    dscasdcasdcasdcasdc
-                    Casdcadadedawf
+                    Прекрасные пирожные на заказ в Минске от компании MorionKot
                 </p>
-            </div>
-        </div>
-        <router-link class="go-to-menu" :to="{name: 'catalog'}">Посмотреть всё меню</router-link>
-    </div>
+            </v-flex>
+        </v-flex>
+    </v-layout>
+    <router-link tag="div" class="go-to-menu" :to="{name: 'catalog'}">Посмотреть всё меню</router-link>
+    </v-container>
 </template>
 
 <script>
 export default {
-    
+    name: 'item-category',
+    props: {},
+    data() {
+        return {}
+    },
+    computed: {}
 }
 </script>
 
@@ -58,7 +73,6 @@ export default {
 .item-category-area {
     padding: 120px 15px;
     width: 100%;
-    
 }
 .text-category-area {
     justify-content: center;
@@ -82,6 +96,7 @@ export default {
 }
 .cake-item {
     position: relative;
+    margin: 4%;
     width: 100%;
     min-height: 1px;
     padding-right: 15px;
@@ -91,25 +106,23 @@ export default {
     text-align: center;
         box-sizing: border-box;
     img {
-        border-radius: 90px;
-        max-width: 100%;
-        height: auto;
-        vertical-align: middle;
         transition: 0.3s;
-        border-style: none;
     }
     a {
         text-decoration: none;
         font-family: $font-family;
-        color: $color-font;
+        color: #2c3e50;
         transition: 0.3s;
+    }
+    h3 {
+        color: $color-font;
     }
 }
 .cake-item:hover {
     img {
         transform: scale(1.1);
     }
-    a {
+    h3 {
         color: $color;
     }
 }
@@ -124,7 +137,6 @@ export default {
     transition: 0.3s;
     cursor: pointer;
     position: relative;
-    margin-top: 80px;
     text-decoration: none;
     border: 1px solid transparent;
 }
