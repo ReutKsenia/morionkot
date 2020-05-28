@@ -68,7 +68,7 @@
       >Перейти к оформлению заказа</v-btn>
     </div>
     <div v-else>
-      <h1>Корзина пуста!</h1>
+      <h1 style="margin: 16%;">Корзина пуста!</h1>
     </div>
   </v-container>
 </template>

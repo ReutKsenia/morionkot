@@ -92,9 +92,7 @@ router.post('/delete-image', (req, res) => {
       reject({
         message: 'Error occurred while deleting old profile picture'
       });
-    } else {
-      resolve();
-    }
+    } else { resolve();}
   });
   Product.updateOne({ _id: req.body.id }, { $pull: { image: req.body.imageName } }, function (err) {
     if (err) return console.log(err);

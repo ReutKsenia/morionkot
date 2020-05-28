@@ -100,12 +100,25 @@
           <v-btn class="primary" @click="uploadImage" :loading="saving">Сохранить картинки</v-btn>
         </div>
       </v-slide-x-transition>
-      <v-btn
-        color="deep-purple"
-        dark
-        style="margin: 5%"
-        @click="saveProduct()"
-      >Сохранить новый товар</v-btn>
+
+      <v-dialog v-model="dialog" max-width="290">
+      <template v-slot:activator="{ on }">
+        <v-btn
+          style="margin: 2%; background-color: #524b98; color: white;"
+          @click="saveProduct()"
+          v-on="on"
+          :disabled="isAddButtonDisabled"
+        >Сохранить новый товар</v-btn>
+      </template>
+      <v-card>
+        <v-card-title class="headline">Новый товар успешно сохранен!</v-card-title>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="deep-purple darken-1" text @click="dialog = false">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     </v-container>
   </div>
 </template>
@@ -141,6 +154,7 @@ export default {
       avatar: [],
       saving: false,
       saved: false,
+      dialog: false,
       headers: {
         "Content-Type": "multipart/form-data"
       }
@@ -155,7 +169,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["PRODUCT_CATEGORY"])
+    ...mapGetters(["PRODUCT_CATEGORY"]),
+
+    isAddButtonDisabled() {
+      if (!this.newProduct.name) return true;
+      else if (!this.newProduct.price) return true;
+      else if (!this.newProduct.weight) return true;
+      else if (!this.newProduct.description) return true;
+      else if (!this.newProduct.image) return true;
+      else if (!this.newProduct.category) return true;
+      else return false;
+    }
   },
   methods: {
     ...mapActions(["GET_CATEGORY_FROM_DB"]),
@@ -198,8 +222,17 @@ export default {
     },
 
     saveProduct() {
-      productsService.addProduct(this.newProduct);
-      console.log("addProd");
+      productsService.addProduct(this.newProduct).then(() => {
+        this.newProduct.name = '';
+        this.newProduct.price = [];
+        this.newProduct.weight = [];
+        this.newProduct.description = '';
+        this.newProduct.image = [];
+        this.newProduct.category = '';
+        this.newProduct.countField = 1;
+        this.newProduct.countImage = 1;
+        this.avatar = [];
+      })
     }
   },
   mounted() {

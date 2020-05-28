@@ -8,9 +8,7 @@ import auth from '../components/authentication/auth'
 import adminOrders from '../components/admin-panel/admin-orders'
 import cart from '../components/cart/cart'
 import order from '../components/order/order'
-import orderOk from '../components/order/order-ok'
 import productCategory from '../components/admin-panel/product-category'
-import Settings from '../components/admin-panel/settings'
 import adminProducts from '../components/admin-panel/admin-products'
 import addProduct from '../components/admin-panel/add-product'
 import changeProduct from '../components/admin-panel/change-product'
@@ -88,14 +86,6 @@ Vue.use(VueRouter)
     }
   },
   {
-    path: '/settings',
-    name: 'settings',
-    component: Settings,
-    meta: {
-      requiredAuth: true
-    }
-  },
-  {
     path: '/cart',
     name: 'cart',
     component: cart,
@@ -104,11 +94,6 @@ Vue.use(VueRouter)
     path: '/order',
     name: 'order',
     component: order
-  },
-  {
-    path: '/order-ok',
-    name: 'orderOk',
-    component: orderOk
   },
   {
     path: '/delivery',

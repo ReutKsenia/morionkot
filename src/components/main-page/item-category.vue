@@ -44,12 +44,12 @@
             </v-avatar>
             <v-flex>
                 <router-link :to="{name: 'catalog'}">
-                    <h3>Пирожные</h3>
+                    <h3>Капкейки</h3>
                 </router-link>
             </v-flex>
             <v-flex>
                 <p>
-                    Прекрасные пирожные на заказ в Минске от компании MorionKot
+                    Прекрасные капкейки на заказ в Минске от компании MorionKot
                 </p>
             </v-flex>
         </v-flex>

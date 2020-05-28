@@ -62,12 +62,12 @@
             <v-list-item-title>Товары</v-list-item-title>
           </v-list-item>
 
-          <v-list-item to="/settings">
+          <!-- <v-list-item to="/settings">
             <v-list-item-icon>
               <v-icon>settings</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Настройки</v-list-item-title>
-          </v-list-item>
+          </v-list-item> -->
 
         </v-list-item-group>
       </v-list>

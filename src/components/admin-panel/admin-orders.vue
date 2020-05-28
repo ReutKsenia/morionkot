@@ -79,7 +79,6 @@ export default {
     },
 
     getProducts(item) {
-      console.log("asd");
       orderService.getProductsFromCart(item).then(products => {
         console.log(products);
         this.expanded = products.data.products;
