@@ -139,4 +139,18 @@ router.post('/product-from-category', (req, res) => {
 })
 });
 
+router.post('/new-category', (req, res) => {
+  ProductCategory.create({ category_name: req.body.categoryName }, function(err) {
+    if (err) return console.log(err);
+    else res.sendStatus(200);
+  })
+});
+
+router.post('/delete-category', (req, res) => {
+  ProductCategory.findOneAndDelete({ _id: req.body._id }, function(err) {
+    if (err) return console.log(err);
+    else res.sendStatus(200);
+  })
+})
+
 module.exports = router;

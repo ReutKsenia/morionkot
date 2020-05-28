@@ -2,7 +2,7 @@
     <div class="admin-menu">
             <v-app-bar color="deep-purple" dark>
               <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-              <v-toolbar-title>Title</v-toolbar-title>
+              <v-toolbar-title>Admin</v-toolbar-title>
 
               <v-spacer></v-spacer>
   
@@ -18,7 +18,8 @@
   
               <v-list>
                 <v-list-item
-                  @click="exit">
+                  @click="exit"
+                  to="auth">
                   <v-list-item-title>Выйти</v-list-item-title>
                 </v-list-item>
               </v-list>
@@ -78,6 +79,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import Auth from '../../services/authService'
 
 export default {
     name: 'admin-menu',
@@ -87,7 +90,17 @@ export default {
             drawer: false,
         }
     },
-    computed: {}
+    computed: {
+    },
+    methods: {
+      ...mapActions(["GET_ADMIN"]),
+      exit(){
+        console.log('admin')
+        this.GET_ADMIN(false)
+        Auth.admin.authenticated = false;
+        //Auth.default.admin.authenticated = false;
+      }
+    }
 }
 </script>
 

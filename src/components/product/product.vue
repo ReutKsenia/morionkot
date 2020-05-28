@@ -14,7 +14,7 @@
         </v-flex>
         <v-flex style="text-align:left; padding: 1%">
             <h1>{{ITEM[0].name}}</h1>
-                <h2>Цена: {{ITEM[0].price[getKeyByValue(ITEM[0].weight, selectedWeight)]}} руб</h2>
+                <h2 class="price">Цена: {{ITEM[0].price[getKeyByValue(ITEM[0].weight, selectedWeight)]}} руб</h2>
                 <v-select
                 :items="ITEM[0].weight"
                 v-model="selectedWeight"
@@ -98,4 +98,8 @@ export default {
 </script>
 
 <style lang="scss">
+.price {
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
 </style>

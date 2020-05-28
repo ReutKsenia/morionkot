@@ -49,10 +49,12 @@
                         label="Выберете дату"
                         append-icon="event"
                         readonly
+                        color="deep-purple"
+                        :rules="rules.required"
                         v-on="on"
                         ></v-text-field>
                     </template>
-                    <v-date-picker v-model="details.delivery_date" @input="menu = false"></v-date-picker>
+                    <v-date-picker v-model="details.delivery_date" color="deep-purple" @input="menu = false"></v-date-picker>
                     </v-menu>
                     <p class="order_headers">Адрес доставки (заполгяется при доставке курьером)</p>
                     <v-text-field

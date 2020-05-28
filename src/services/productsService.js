@@ -31,5 +31,13 @@ export default {
 
   fetchProductsFromCategory(categoryName) {
     return api().post('product-from-category', {categoryName: categoryName});
-  }
+  },
+
+  newCategory(categoryName){
+    return api().post('new-category', {categoryName: categoryName});
+  },
+
+  deleteCategory(category){
+    return api().post('delete-category', category);
+  },
 }

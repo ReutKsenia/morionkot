@@ -52,7 +52,7 @@ export default {
         },
         { text: "Способ оплаты", value: "payment_method", sortable: false },
         { text: "Сумма", value: "cost", sortable: false },
-        { text: "Actions", value: "actions", sortable: false }
+        { text: "Действия", value: "actions", sortable: false }
       ],
       headersProducts: [
         {
@@ -73,7 +73,9 @@ export default {
     ...mapActions(["GET_ORDERS_FROM_DB"]),
 
     deleteItem(item) {
-      orderService.deleteOrder(item);
+      orderService.deleteOrder(item).then(() => {
+        this.GET_ORDERS_FROM_DB();
+      })
     },
 
     getProducts(item) {
