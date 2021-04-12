@@ -75,17 +75,20 @@ export default {
                     this.$set(this.cartItem,  'quantity', 1);
                     this.$set(this.cartItem,  'selectedPrice', this.ITEM[0].price[this.getKeyByValue(this.ITEM[0].weight, this.selectedWeight)]);
                     this.$set(this.cartItem,  'selectedWeight', this.selectedWeight);
+                    this.selectedWeight = null;
                     this.ADD_TO_CART(this.cartItem);
                     return;
                 }
                 else if(this.CART[i]== this.ITEM[0]){
                     this.CART[i].quantity = this.CART[i].quantity + 1;
+                    this.selectedWeight = null;
                     return;
                 }
                 else if(i == this.CART.length){
                     this.$set(this.cartItem,  'quantity', 1);
                     this.$set(this.cartItem,  'selectedPrice', this.ITEM[0].price[this.getKeyByValue(this.ITEM[0].weight, this.selectedWeight)]);
                     this.$set(this.cartItem,  'selectedWeight', this.selectedWeight);
+                    this.selectedWeight = null;
                     this.ADD_TO_CART(this.cartItem);
                     return;
                 }
@@ -93,6 +96,7 @@ export default {
         }
     },
     mounted() {
+        this.selectedWeight = null;
     }
 }
 </script>

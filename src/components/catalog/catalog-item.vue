@@ -5,7 +5,7 @@
     height="200px"
     width="300px"/>
     <v-card-title style="display:block;">{{product_data.name}}</v-card-title>
-    <v-card-subtitle style="display:block;">{{product_data.price[0]}} BUN</v-card-subtitle>
+    <v-card-subtitle style="display:block;">от {{product_data.price[0]}} BUN</v-card-subtitle>
     <v-card-actions style="display:block;">
         <v-btn 
         color="#d1ab7f"

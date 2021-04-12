@@ -1,59 +1,59 @@
 <template>
     <v-container class="item-category-area">
     <h1>Категории доступных товаров</h1>
-    <v-layout row wrap class="text-category-area">
-        <v-flex class="cake-item">
+        <div class="row-item-category">
+        <div class="cake-item">
             <v-avatar
             width="200px"
             height="200px">
                 <img src="../../assets/images/cake2.jpg"/>
             </v-avatar>
-            <v-flex>
+            <div>
                 <router-link :to="{name: 'catalog'}">
                     <h3>Торты</h3>
                 </router-link>
-            </v-flex>
-            <v-flex>
+            </div>
+            <div> 
                 <p>
                     Великолепные торты на заказ в Минске от компании MorionKot
                 </p>
-            </v-flex>
-        </v-flex>
-        <v-flex class="cake-item">
+            </div>
+        </div>
+        <div class="cake-item">
             <v-avatar
             width="200px"
             height="200px">
                 <img src="../../assets/images/cheesecake.jpg"/>
             </v-avatar>
-            <v-flex>
+            <div>
                 <router-link :to="{name: 'catalog'}">
                     <h3>Чизкейки</h3>
                 </router-link>
-            </v-flex>
-            <v-flex>
+            </div>
+            <div>
                 <p>
                     Лучшие чизкейки на заказ в Минске от компании MorionKot
                 </p>
-            </v-flex>
-        </v-flex>
-        <v-flex class="cake-item">
+            </div>
+        </div>
+        <div class="cake-item">
             <v-avatar
             width="200px"
             height="200px">
                 <img src="../../assets/images/пирожное.jpg"/>
             </v-avatar>
-            <v-flex>
+            <div>
                 <router-link :to="{name: 'catalog'}">
                     <h3>Капкейки</h3>
                 </router-link>
-            </v-flex>
-            <v-flex>
+            </div>
+            <div>
                 <p>
                     Прекрасные капкейки на заказ в Минске от компании MorionKot
                 </p>
-            </v-flex>
-        </v-flex>
-    </v-layout>
+            </div>
+        </div>
+        </div>
     <router-link tag="div" class="go-to-menu" :to="{name: 'catalog'}">Посмотреть всё меню</router-link>
     </v-container>
 </template>
@@ -87,13 +87,9 @@ export default {
         padding-bottom: 10px;
     }
 }
-.row-item-category {
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 165px;
-    padding-right: 165px;
-    justify-content: space-around;
-}
+@media screen and (min-width: 1024px) {
+    .row-item-category { display: flex; }
+} 
 .cake-item {
     position: relative;
     margin: 4%;
@@ -102,7 +98,6 @@ export default {
     padding-right: 15px;
     padding-left: 15px;
     flex: 0 0 25%;
-    max-width: 25%;
     text-align: center;
         box-sizing: border-box;
     img {

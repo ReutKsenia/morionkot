@@ -4,31 +4,131 @@ const mongoose = require('mongoose'),
 
 const api = {};
 
-api.login = (Admin) => (req, res) => {
-    Admin.findOne({ login: req.body.login }, (error, admin) => {
-    if (error) throw error;
-    if (!admin) res.status(401).send({ success: false, message: 'Authentication failed. Admin not found.' });
-    else {
-        admin.comparePassword(req.body.password, (error, matches) => {
-        if (matches && !error) {
-          const token = jwt.sign({ admin }, config.secret);
-          res.json({ success: true, message: 'Token granted', token, admin: admin });
-        } else {
-          res.status(401).send({ success: false, message: 'Authentication failed. Wrong password.' });
-        }
-      });
-    }
-  });
+api.loginEmployee = (Employee, Role) => (req, res) => {
+  Employee.findOne({ login: req.body.login }, (error, employee) => {
+  if (error) throw error;
+  if (!employee) res.status(401).send({ success: false, message: 'Authentication failed. Employee not found.' });
+  else {
+    employee.comparePassword(req.body.password, (error, matches) => {
+      if (matches && !error) {
+        Role.findById(employee.role_id, (error, role) => {
+          if (error) throw error;
+          if (role.role != req.body.role) res.status(401).send({ success: false, message: 'Authentication failed. Wrong position.' });
+          else {
+          const token = jwt.sign({ employee: employee, role: role.role}, config.secret);
+          res.json({ success: true, message: 'Token granted', token, employee: employee, role: role.role });
+          }
+        })
+      } else {
+        res.status(401).send({ success: false, message: 'Authentication failed. Wrong password.' });
+      }
+    });
+  }
+});
+}
+
+api.signupEmployee = (Employee, Role) => (req, res) => {
+  if (!req.body.login || !req.body.password) res.json({ success: false, message: 'Please, pass a username and password.' });
+  else {
+    Role.findOne({ role: req.body.role }, (error, role) => {
+      if (error) throw error;
+      else {
+        const newEmployee = new Employee({
+          name: req.body.name,
+          login: req.body.login,
+          password: req.body.password,
+          role_id: role._id
+        });
+        newEmployee.save((error, employee) => {
+          if (error) return res.status(400).json({ success: false, message:  'Username already exists.' });
+          else {
+            const token = jwt.sign({ employee: employee, role: role.role}, config.secret);
+          res.json({ success: true, message: 'Account created successfully', token, employee: employee, role: role.role });
+          }
+        })
+      }
+    })
+    
+  }
+}
+
+api.loginUser = (User) => (req, res) => {
+  User.findOne({ email: req.body.email }, (error, user) => {
+  if (error) throw error;
+  if (!user) res.status(401).send({ success: false, message: 'Authentication failed. User not found.' });
+  else {
+    console.log(user);
+      user.comparePassword(req.body.password, (error, matches) => {
+      if (matches && !error) {
+        const token = jwt.sign({ user }, config.secret);
+        res.json({ success: true, message: 'Token granted', token, user: user });
+      } else {
+        res.status(401).send({ success: false, message: 'Authentication failed. Wrong password.' });
+      }
+    });
+  }
+});
+}
+
+api.signupUser = (User) => (req, res) => {
+  if (!req.body.email || !req.body.password) res.json({ success: false, message: 'Please, pass a username and password.' });
+  else {
+    const newUser = new User({
+      email: req.body.email,
+      password: req.body.password,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name
+    });
+    newUser.save((error, user) => {
+      if (error) return res.status(400).json({ success: false, message:  'Username already exists.' });
+      else {
+        const token = jwt.sign({ user }, config.secret);
+        res.json({ success: true, message: 'Account created successfully', token, user: user });
+      }
+    })
+  }
+}
+
+api.verify = (headers) => {
+  if (headers && headers.authorization) {
+    const split = headers.authorization.split(' ');
+
+    if (split.length === 2) return split[1];
+    else return null;
+  } else return null;
+}
+
+api.adminGuard = (Role) => (req, res, next, payload) =>  {
+  console.log(payload);
+  Role.findById(payload.user.role_id, (error, role) => {
+  if(role.role != 'admin') {
+    next(new Error('You are not an admin'));
+  } else {
+    next();
+  }
+})
+}
+
+api.managerGuard = (Role) => (req, res, next, payload) =>  {
+  console.log(payload);
+  Role.findById(payload.user.role_id, (error, role) => {
+  if(role.role != 'manager') {
+    next(new Error('You are not an manager'));
+  } else {
+    next();
+  }
+})
+}
+
+api.courierGuard = (Role) => (req, res, next, payload) =>  {
+  console.log(payload);
+  Role.findById(payload.user.role_id, (error, role) => {
+  if(role.role != 'courier') {
+    next(new Error('You are not an courier'));
+  } else {
+    next();
+  }
+})
 }
 
 module.exports = api;
-
-// api.verify = (headers) => {
-//   if (headers && headers.authorization) {
-//     const split = headers.authorization.split(' ');
-
-//     if (split.length === 2) return split[1];
-//     else return null;
-//   } else return null;
-// }
-

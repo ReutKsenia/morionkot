@@ -12,6 +12,15 @@ export default {
     GET_ADMIN({commit}, admin){
         commit('SET_ADMIN', admin)
     },
+    GET_MANAGER({commit}, manager){
+        commit('SET_MANAGER', manager)
+    },
+    GET_COURIER({commit}, courier){
+        commit('SET_COURIER', courier)
+    },
+    GET_USER({commit}, user){
+        commit('SET_USER', user)
+    },
     INCREMENT_CART_ITEM({commit}, index) {
         commit('INCREMENT', index)
     },

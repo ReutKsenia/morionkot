@@ -6,6 +6,6 @@
             "useMongoClient": true 
         }
     },
-    "secret": "adminsecret",
+    "secret": "This is secret",
     "session": { "session": false }
 }

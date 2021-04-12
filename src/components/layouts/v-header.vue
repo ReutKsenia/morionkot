@@ -1,6 +1,6 @@
 <template>
 <div class="v-header">
-<v-container class="v-header" style="padding-top: 6px; padding-bottom: 4px;">
+<v-container class="v-header">
 	<v-toolbar 
 	class="v-header-toolbar"
 	flat="true"
@@ -23,7 +23,7 @@
 	</v-toolbar>
 </v-container>
 <div class="v-header-main-menu">
-	<v-container>
+	<v-container class="d-none d-md-flex">
 		<v-toolbar 
 		flat="true">
 			<router-link :to="{name: 'mainPage'}">
@@ -34,7 +34,7 @@
 				</v-img>
 			</router-link>
 			<v-spacer></v-spacer>
-			<v-tabs 
+			<v-tabs
 			right="true"
 			color="#d1ab7f">
 			<v-tab to="/">ГЛАВНАЯ</v-tab>
@@ -49,6 +49,12 @@
 						<v-icon>shopping_cart</v-icon>
 				</v-badge>
 			</v-tab>
+			<v-tab to="/user-auth" v-if="!USER">
+				<v-icon>persone</v-icon>
+			</v-tab>
+			<v-tab to="/personal-account" v-else>
+				<v-icon>persone</v-icon>
+			</v-tab>
 			</v-tabs>
 		</v-toolbar>
 	</v-container>
@@ -57,7 +63,8 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
+import auth from '../../services/userService.js'
 
 export default {
 	name: 'header',
@@ -65,9 +72,21 @@ export default {
 	},
 	computed: {
         ...mapGetters([
-            'CART'
+            'CART', 'USER'
         ])
+		
     },
+	methods: {
+		...mapActions(["GET_USER"]),
+		// authUser(){
+		// 	return auth.checkAuthentication(this);
+		// }
+	},
+	mounted(){
+		if(auth.checkAuthentication(this)) {
+			this.GET_USER(true);
+		}
+	}
 }
 </script>
 

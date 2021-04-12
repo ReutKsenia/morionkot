@@ -13,6 +13,15 @@ export default {
     ADMIN(state){
         return state.admin;
     },
+    MANAGER(state){
+        return state.manager;
+    },
+    COURIER(state){
+        return state.courier;
+    },
+    USER(state){
+        return state.user;
+    },
     SUM(state){
         return state.sum;
     },
@@ -25,7 +34,13 @@ export default {
     PRODUCTS_FROM_CATEGORY(state){
         return state.productsFromCategory;
     },
-    ORDERS(state){
-        return state.orders;
+    ORDERS_UNEXECUTED_FOR_MANAGER(state){
+        return state.ordersUnexecutedForManager;
+    },
+    ORDERS_EXECUTED_FOR_MANAGER(state){
+        return state.ordersExecutedForManager;
+    },
+    ALL_COURIERS(state){
+        return state.allCouriers;
     }
 }

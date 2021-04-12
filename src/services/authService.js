@@ -1,23 +1,61 @@
 import Axios from 'axios'
 import router from '../router/index'
+import api from './api'
 const config = require('../../server/config/config.json')
 
 export default {
   admin: { authenticated: false },
+  manager: { authenticated: false },
+  courier: { authenticated: false },
 
   authenticate (context, credentials, redirect) {
    return Axios.post(`http://localhost:${config.port}/auth`, credentials)
         .then(({data}) => {
           context.$cookie.set('token', data.token, '1D')
-          context.$cookie.set('admin_id', data.admin._id, '1D')
           context.validLogin = true;
-          this.admin.authenticated = true;
+          if(data.role == 'admin') {
+            this.admin.authenticated = true;
+          }
+          if(data.role == 'manager') {
+            this.manager.authenticated = true;
+          }
+          if(data.role == 'courier') {
+            this.courier.authenticated = true;
+          }
           if (redirect) router.push(redirect)
         }).catch(({response: {data}}) => {
           context.snackbar = true
           context.message = data.message
         })
         
+  },
+
+  signup (context, credentials, redirect) {
+    Axios.post(`http://localhost:${config.port}/registration`, credentials)
+        .then(({data}) => {
+          context.$cookie.set('token', data.token, '1D')
+          context.validSignUp = true
+          if(data.role == 'admin') {
+            this.admin.authenticated = true;
+          }
+          if(data.role == 'manager') {
+            this.manager.authenticated = true;
+          }
+          if(data.role == 'courier') {
+            this.courier.authenticated = true;
+          }
+          if (redirect) router.push(redirect)
+        }).catch(({response: {data}}) => {
+          context.snackbar = true
+          context.message = data.message
+        })
+  },
+
+  exit(context) {
+    this.admin.authenticated = false;
+    this.manager.authenticated = false;
+    this.courier.authenticated = false;
+    context.$cookie.delete('token');
   },
 
   checkAuthentication () {
@@ -27,5 +65,9 @@ export default {
 
   getAuthenticationHeader (context) {
     return `Bearer ${context.$cookie.get('token')}`
+  },
+
+  saveAdmin(admin, context){
+    api.post('save-admin', admin, { headers: { 'Authorization': this.getAuthenticationHeader(context) }})
   }
 }

@@ -22,6 +22,15 @@ export default {
     SET_ADMIN: (state, admin) => {
         state.admin = admin;
     },
+    SET_MANAGER: (state, manager) => {
+        state.manager = manager;
+    },
+    SET_COURIER: (state, courier) => {
+        state.courier = courier;
+    },
+    SET_USER: (state, user) => {
+        state.user = user;
+    },
     REMOVE_FROM_CART: (state, index) => {
         state.cart.splice(index, 1)
     },
@@ -42,7 +51,13 @@ export default {
     SET_PRODUCTS_FROM_CATEGORY_TO_STATE: (state, products) => {
         state.productsFromCategory = products.products
     },
-    SET_ORDERS_TO_STATE: (state, orders) => {
-        state.orders = orders.orders
+    SET_ORDERS_UNEXECUTED_FOR_MANAGER_TO_STATE: (state, ordersUnexecutedForManager) => {
+        state.ordersUnexecutedForManager = ordersUnexecutedForManager.orders
+    },
+    SET_ORDERS_EXECUTED_FOR_MANAGER_TO_STATE: (state, ordersExecutedForManager) => {
+        state.ordersExecutedForManager = ordersExecutedForManager.orders
+    },
+    SET_ALL_COURIERS_TO_STATE: (state, allCouriers) => {
+        state.allCouriers = allCouriers.couriers
     }
 }

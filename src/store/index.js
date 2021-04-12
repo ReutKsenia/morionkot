@@ -16,11 +16,16 @@ export default new Vuex.Store({
       cart: [],
       item: [],
       admin: false,
+      manager: false,
+      courier: false,
+      user: false,
       sum: Number,
       productsCategory: [],
       comments: [],
       productsFromCategory: [],
-      orders: []
+      ordersUnexecutedForManager: [],
+      ordersExecutedForManager: [],
+      allCouriers: []
   },
   mutations,
   actions,

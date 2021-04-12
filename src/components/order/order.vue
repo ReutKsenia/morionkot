@@ -55,10 +55,14 @@
             <v-date-picker
               v-model="details.delivery_date"
               color="deep-purple"
+              locale="ru-latn"
               @input="menu = false"
             ></v-date-picker>
           </v-menu>
-          <p class="order_headers">Адрес доставки (заполгяется при доставке курьером)</p>
+          <div v-if="details.way_of_reception == 'Курьером'">
+          <p class="order_headers">
+            Адрес доставки (заполгяется при доставке курьером)
+          </p>
           <v-text-field
             v-model="details.delivery_adress"
             label="Улица, номер дома/корпус, номер квартиры"
@@ -66,6 +70,7 @@
             color="deep-purple"
             style="min-height: 5%"
           ></v-text-field>
+          </div>
           <h3 class="order_headers">Оплата (при получении)</h3>
           <v-select
             v-model="details.payment_method"
@@ -76,19 +81,30 @@
             color="deep-purple"
             style="min-height: 5%"
           ></v-select>
+          <h3 class="order_headers">Комментарии к заказу</h3>
+          <v-textarea
+          v-model="details.comment"
+          label="Напишите комментарии (необязательно)"
+          filled
+          color="deep-purple"
+          style="min-height: 5%"
+        ></v-textarea>
         </v-form>
       </v-col>
       <v-col>
         <v-data-table :items="CART" class="elevation-2" hide-default-footer>
-          <template v-slot:body="{items}">
+          <template v-slot:body="{ items }">
             <tbody>
               <tr>
                 <td>
                   <h3>Список товаров</h3>
                 </td>
               </tr>
-              <tr v-for="(item,index) in items" :key="index">
-                <td>{{ item.quantity }} х {{ item.name }} {{ item.selectedPrice }} BUN</td>
+              <tr v-for="(item, index) in items" :key="index">
+                <td>
+                  {{ item.quantity }} х {{ item.name }}
+                  {{ item.selectedPrice }} BUN
+                </td>
               </tr>
             </tbody>
             <v-divider />
@@ -98,7 +114,7 @@
               <tr>
                 <td>
                   <div>
-                    <h3>Сумма: {{SUM | toFix | formattedPrice}}</h3>
+                    <h3>Сумма: {{ SUM | toFix | formattedPrice }}</h3>
                   </div>
                 </td>
               </tr>
@@ -110,21 +126,29 @@
     <v-dialog v-model="dialog" max-width="290">
       <template v-slot:activator="{ on }">
         <v-btn
-          style="margin: 2%; background-color: #524b98; color: white;"
+          style="margin: 2%; background-color: #524b98; color: white"
           @click="addOrder"
           v-on="on"
           :disabled="isAddButtonDisabled"
-        >Оформить заказ</v-btn>
+          >Оформить заказ</v-btn
+        >
       </template>
       <v-card>
-        <v-card-title class="headline">Заказ успешно оформлен!</v-card-title>
+        <v-card-title class="headline" style="display: block"
+          >Заказ оформлен!</v-card-title
+        >
 
-        <v-card-text>В течении 30 минут после оформления заказа с вами свяжутся, дла уточнения и подтверждения заказа</v-card-text>
+        <v-card-text
+          >В течении 30 минут после оформления заказа с вами свяжутся, для
+          уточнения и подтверждения заказа</v-card-text
+        >
 
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="deep-purple darken-1" text @click="dialog = false">OK</v-btn>
+          <v-btn color="deep-purple darken-1" text @click="dialog = false"
+            >OK</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -151,19 +175,19 @@ export default {
         cost: this.SUM,
         status: false,
         payment_method: "",
-        products_id: []
+        comment: ""
       },
       rules: {
         phone_number: [
-          v =>
+          (v) =>
             (v || "").match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/) ||
-            "Номер некорректный"
+            "Номер некорректный",
         ],
-        required: [v => !!v || "Это поле является обязательным к заполнению"]
+        required: [(v) => !!v || "Это поле является обязательным к заполнению"],
       },
       way_of_reception: ["Курьером", "Самовывоз пр. Победителей, 106"],
       payment_method: ["Наличными", "Картой"],
-      dialog: false
+      dialog: false,
     };
   },
   computed: {
@@ -175,25 +199,26 @@ export default {
       else if (!this.details.delivery_date) return true;
       else if (!this.details.payment_method) return true;
       else return false;
-    }
+    },
   },
   filters: {
     formattedPrice,
-    toFix
+    toFix,
   },
   methods: {
     addOrder() {
       this.details.cost = this.SUM;
-      AddOrder.add(this.details, this.CART).then(() => {
+      AddOrder.add(this.details, this.CART, this).then(() => {
         this.details.customer_name = "";
         this.details.phone_number = "";
         this.details.way_of_reception = "";
         this.details.delivery_adress = "";
         this.details.delivery_date = "";
         this.details.payment_method = "";
+        this.details.comment = "";
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

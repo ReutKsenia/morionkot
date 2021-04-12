@@ -1,15 +1,15 @@
 <template>
   <div class="admin-orders">
     <v-container>
-      <h1>Заказы</h1>
-      <v-data-table :headers="headers" :items="ORDERS_UNEXECUTED" class="elevation-1">
+      <h1>Архив</h1>
+      <v-data-table :headers="headers" :items="ORDERS_EXECUTED" class="elevation-1">
         <template v-slot:[`item.status`]="{ item }">
-          <v-simple-checkbox v-model="item.status" @click="changeStatus(item)" :ripple="false"></v-simple-checkbox>
+          <v-simple-checkbox v-model="item.status" @click="changeStatus(item)"></v-simple-checkbox>
         </template>
-        <template v-slot:[`item.actions`]="{ item }">
+        <template v-slot:[`item.details`]="{ item }">
           <v-dialog v-model="dialog" scrollable :retain-focus="false">
             <template v-slot:activator="{ on }">
-              <v-icon small @click="getProducts(item)" v-on="on">visibility</v-icon>
+              <v-icon small @click="getProducts(item)" v-on="on">edit</v-icon>
             </template>
             <v-card>
               <v-data-table :headers="headersProducts" :items="expanded" class="elevation-1"></v-data-table>
@@ -18,6 +18,9 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+        </template>
+        <template v-slot:[`item.delete`]="{ item }">
+              <v-icon small @click="deleteItem(item)">delete</v-icon>
         </template>
       </v-data-table>
     </v-container>
@@ -29,7 +32,7 @@ import { mapGetters, mapActions } from "vuex";
 import orderService from "../../services/orderService";
 
 export default {
-  name: "admin-orders",
+  name: "admin-archive",
   props: {},
   data() {
     return {
@@ -51,7 +54,8 @@ export default {
         },
         { text: "Способ оплаты", value: "payment_method", sortable: false },
         { text: "Сумма", value: "cost", sortable: false },
-        { text: "Детали", value: "actions", sortable: false }
+        { text: "Детали", value: "details", sortable: false },
+        { text: "Удалить", value: "delete", sortable: false }
       ],
       headersProducts: [
         {
@@ -66,10 +70,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["ORDERS_UNEXECUTED"])
+    ...mapGetters(["ORDERS_EXECUTED"])
   },
   methods: {
-    ...mapActions(["GET_ORDERS_UNEXECUTED_FROM_DB"]),
+    ...mapActions(["GET_ORDERS_EXECUTED_FROM_DB"]),
+
+    deleteItem(item) {
+      orderService.deleteOrder(item, this).then(() => {
+        this.GET_ORDERS_EXECUTED_FROM_DB(this);
+      })
+    },
 
     getProducts(item) {
       orderService.getProductsFromCart(item).then(products => {
@@ -79,14 +89,13 @@ export default {
     },
     
     changeStatus(item){
-      console.log(item)
-      orderService.changeStatusOrder(item, this).then( () => {
-        this.GET_ORDERS_UNEXECUTED_FROM_DB(this);
-      })
+        orderService.changeStatusOrder(item, this).then(() => {
+          this.GET_ORDERS_EXECUTED_FROM_DB(this);
+        })
     }
   },
   mounted() {
-    this.GET_ORDERS_UNEXECUTED_FROM_DB(this);
+    this.GET_ORDERS_EXECUTED_FROM_DB(this);
   }
 };
 </script>
