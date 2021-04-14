@@ -156,7 +156,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters,mapActions } from "vuex";
 import toFix from "../../filters/toFix";
 import formattedPrice from "../../filters/price-format";
 import AddOrder from "../../services/orderService";
@@ -191,7 +191,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["SUM", "CART"]),
+    ...mapGetters(["SUM", "CART", "USER_INFORMATION"]),
 
     isAddButtonDisabled() {
       if (!this.details.phone_number) return true;
@@ -206,11 +206,10 @@ export default {
     toFix,
   },
   methods: {
+    ...mapActions(["GET_USER_INFORMATION_FROM_DB"]),
     addOrder() {
       this.details.cost = this.SUM;
       AddOrder.add(this.details, this.CART, this).then(() => {
-        this.details.customer_name = "";
-        this.details.phone_number = "";
         this.details.way_of_reception = "";
         this.details.delivery_adress = "";
         this.details.delivery_date = "";
@@ -219,6 +218,14 @@ export default {
       });
     },
   },
+  mounted(){
+    this.GET_USER_INFORMATION_FROM_DB(this).then(() => {
+      this.details.customer_name = this.USER_INFORMATION.first_name + " " + this.USER_INFORMATION.last_name;
+      if(this.USER_INFORMATION.phone_number != ''){
+        this.details.phone_number = this.USER_INFORMATION.phone_number;
+      }
+    })
+  }
 };
 </script>
 

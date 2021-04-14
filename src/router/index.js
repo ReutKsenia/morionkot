@@ -6,8 +6,6 @@ import mainPage from '../components/main-page/main-page'
 import item from '../components/product/product'
 import auth from '../components/authentication/auth'
 import userAuth from '../components/authentication/user-auth'
-import adminOrders from '../components/admin-panel/admin-orders'
-import adminArchive from '../components/admin-panel/admin-archive'
 import cart from '../components/cart/cart'
 import order from '../components/order/order'
 import productCategory from '../components/admin-panel/product-category'
@@ -30,6 +28,7 @@ import courierOrders from '../components/courier-panel/courier-orders'
 import courierSettings from '../components/courier-panel/courier-settings'
 import orderHistory from '../components/user/order-history'
 import currentOrders from '../components/user/current-orders'
+import current from '../components/user/current'
 import * as Auth from '../services/authService'
 
 Vue.use(VueRouter)
@@ -80,26 +79,15 @@ Vue.use(VueRouter)
   name: 'currentOrders',
   component: currentOrders
 },
+{
+  path: '/current',
+  name: 'current',
+  component: current
+},
   {
     path: '/comments',
     name: 'comments',
     component: comments
-  },
-  {
-    path: '/admin-orders',
-    name: 'adminOrders',
-    component: adminOrders,
-    meta: {
-      requiredAuth: true
-    }
-  },
-  {
-    path: '/admin-archive',
-    name: 'adminArchive',
-    component: adminArchive,
-    meta: {
-      requiredAuth: true
-    }
   },
   {
     path: '/admin-managers',

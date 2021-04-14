@@ -77,7 +77,8 @@ api.signupUser = (User) => (req, res) => {
       email: req.body.email,
       password: req.body.password,
       first_name: req.body.first_name,
-      last_name: req.body.last_name
+      last_name: req.body.last_name,
+      phone_number: ''
     });
     newUser.save((error, user) => {
       if (error) return res.status(400).json({ success: false, message:  'Username already exists.' });
@@ -96,39 +97,6 @@ api.verify = (headers) => {
     if (split.length === 2) return split[1];
     else return null;
   } else return null;
-}
-
-api.adminGuard = (Role) => (req, res, next, payload) =>  {
-  console.log(payload);
-  Role.findById(payload.user.role_id, (error, role) => {
-  if(role.role != 'admin') {
-    next(new Error('You are not an admin'));
-  } else {
-    next();
-  }
-})
-}
-
-api.managerGuard = (Role) => (req, res, next, payload) =>  {
-  console.log(payload);
-  Role.findById(payload.user.role_id, (error, role) => {
-  if(role.role != 'manager') {
-    next(new Error('You are not an manager'));
-  } else {
-    next();
-  }
-})
-}
-
-api.courierGuard = (Role) => (req, res, next, payload) =>  {
-  console.log(payload);
-  Role.findById(payload.user.role_id, (error, role) => {
-  if(role.role != 'courier') {
-    next(new Error('You are not an courier'));
-  } else {
-    next();
-  }
-})
 }
 
 module.exports = api;

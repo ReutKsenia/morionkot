@@ -13,6 +13,7 @@ const User = Schema({
   },
   first_name: String,
   last_name: String,
+  phone_number: String
 });
 
 User.pre('save', function (next) {

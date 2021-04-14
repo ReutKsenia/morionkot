@@ -18,6 +18,9 @@
                   :value="item.order_id.courier_id.name"
                   :items="ALL_COURIERS"
                   item-text="name"
+                  return-object
+                  @change="changeCourier"
+                  @click="getItem(item)"
                   color="orange"
                   ></v-select>
             <div v-else-if="item.order_id.way_of_reception != 'Курьером'"> </div>
@@ -25,6 +28,9 @@
             v-else
             :items="ALL_COURIERS"
                   item-text="name"
+                  @change="changeCourier"
+                  @click="getItem(item)"
+                  return-object
                   color="orange"></v-select>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
@@ -63,6 +69,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import orderService from "../../services/orderService.js";
+import employeeService from "../../services/employeeService.js"
 
 export default {
   name: "manager-orders",
@@ -73,6 +80,7 @@ export default {
       dialog: false,
       dialog2: false,
       comment: '',
+      order: {},
       headers: [
         {
           text: "Сформирован",
@@ -114,7 +122,6 @@ export default {
         { text: "Вес", value: "selectedPrice", sortable: false },
         { text: "Цена", value: "selectedWeight", sortable: false },
       ],
-      orders: []
     };
   },
   computed: {
@@ -138,10 +145,18 @@ export default {
       this.comment = item.comment;
     },
     
+getItem(item){
+      this.order = item.order_id;
+    },
+    
+    changeCourier(item){
+      employeeService.changeCourier(this.order, item, this);
+    },
+
     changeStatus(item){
         console.log(item);
         orderService.changeStatusOrder(item, this).then( () => {
-        //this.GET_ORDERS_UNEXECUTED_FROM_DB(this);
+          this.GET_ORDERS_UNEXECUTED_FOR_MANAGER_FROM_DB(this);
       })
     }
   },

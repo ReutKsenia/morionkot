@@ -3,9 +3,9 @@
         <div v-if="!ADMIN && !MANAGER && !COURIER">
         <v-header/>
         <div class="main-wrapper-container">
-            <keep-alive>
+            <!-- <keep-alive> -->
                 <router-view></router-view>
-            </keep-alive>
+            <!-- </keep-alive> -->
         </div>
         <v-footer/>
         </div>

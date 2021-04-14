@@ -1,6 +1,6 @@
 <template>
-<v-container grid-list-md text-xs-center>
-    <div class="d-flex flex-row mb-6">
+<v-container grid-list-md >
+    <div class="d-flex flex-row mb-6" style="margin-top: 2%">
         <v-flex xs6>
             <v-carousel>
                 <v-carousel-item

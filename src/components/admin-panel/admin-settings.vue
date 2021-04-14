@@ -1,7 +1,16 @@
 <template>
-  <div>
+  <div class="admin-setting">
     <h1>Личные данные</h1>
     <v-form>
+      <v-text-field
+        label="Имя"
+        v-model="admin.name"
+        color="deep-purple"
+        :rules="rules.required"
+        filled
+      >
+      </v-text-field>
+
       <v-text-field
         label="Логин"
         v-model="admin.login"
@@ -27,7 +36,7 @@
       <v-text-field
         label="Подтверждение пароля"
         v-model="passwordSecond"
-        :rules="rules.required"
+        :rules="rules.passSecond"
         :type="loginPasswordVisible ? 'text' : 'password'"
         color="deep-purple"
         filled
@@ -63,7 +72,8 @@
 </template>
 
 <script>
-//import authService from '../../services/authService.js'
+import { mapGetters, mapActions } from "vuex";
+import employeeService from "../../services/employeeService.js"
 
 export default {
   name: "admin-settings",
@@ -74,6 +84,7 @@ export default {
       passwordSecond: "",
       dialog: false,
         admin: {
+            name: '',
             login: '',
             password: ''
         },
@@ -85,30 +96,41 @@ export default {
             "Пароль должен содержать минимум 5 символов",
         ],
         required: [(v) => !!v || "Обязательно к заполнению"],
+        passSecond: [ (v) => v == this.admin.password || "Пароли должны совпадать"]
       },
     };
   },
   computed: {
+    ...mapGetters(["ADMIN_INFORMATION"]),
+
       isAddButtonDisabled() {
       if (!this.admin.login) return true;
       else if (!this.admin.password) return true;
-      else if (!this.passwordSecond) return true;
+      else if (this.passwordSecond != this.admin.password) return true;
       else return false;
     },
   },
   methods: {
+    ...mapActions(["GET_ADMIN_INFORMATION_FROM_DB"]),
+
     save() {
-      
-    //    userService.saveUser(this, this.user);
-    //     this.user.first_name = '';
-    //   this.user.last_name = '';
-    //   this.user.email = '';
-    //    this.user.password = '';
-    //    this.user.passwordSecond ='';
+      employeeService.saveAdmin(this.admin, this).then(() => {
+        this.admin.password = '';
+        this.passwordSecond = '';
+      })
      },
   },
   mounted() {
+    this.GET_ADMIN_INFORMATION_FROM_DB(this).then(() => {
+      this.admin.name = this.ADMIN_INFORMATION.name;
+    this.admin.login = this.ADMIN_INFORMATION.login;
+    })
   },
 };
 </script>
 
+<style lang="scss">
+.admin-setting {
+  padding: 5%;
+}
+</style>

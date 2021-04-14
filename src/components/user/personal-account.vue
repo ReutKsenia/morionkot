@@ -2,6 +2,7 @@
   <div>
     <div class="container-personal-account">
         <h1>Личный кабинет</h1>
+        <div class="personal-account">
       <div class="current-orders">
         <router-link :to="{ name: 'currentOrders' }">
           <v-icon
@@ -30,6 +31,7 @@
           <h2>ИСТОРИЯ ЗАКАЗОВ</h2>
         </router-link>
       </div>
+        </div>
     </div>
     <div class="btn-exit">
     <v-btn style="background-color: #d1ab7f; color: white" @click.native="exit()">Выйти</v-btn>
@@ -68,7 +70,7 @@ export default {
   margin-left: 5%;
   margin-right: 5%;
   h1 {
-      padding: 1%;
+      padding: 2%;
   }
 }
 .personal-data,
@@ -95,4 +97,7 @@ export default {
 .btn-exit {
     margin-bottom: 5%;
 }
+@media screen and (min-width: 980px) {
+    .personal-account { display: flex; justify-content: space-around; }
+} 
 </style>

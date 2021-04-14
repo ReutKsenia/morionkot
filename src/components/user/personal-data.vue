@@ -18,6 +18,15 @@
       </v-text-field>
 
       <v-text-field
+        label="Номер телефона"
+        v-model="user.phone_number"
+        color="deep-purple"
+        :rules="rules.phone_number"
+        filled
+      >
+      </v-text-field>
+
+      <v-text-field
         label="E-Mail"
         v-model="user.email"
         :rules="rules.email"
@@ -79,6 +88,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import userService from '../../services/userService.js'
 
 export default {
@@ -95,8 +105,14 @@ export default {
         last_name: "",
         email: "",
         password: "",
+        phone_number: ""
       },
       rules: {
+        phone_number: [
+          (v) =>
+            (v || "").match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/) ||
+            "Номер некорректный",
+        ],
         email: [
           (v) =>
             (v || "").match(
@@ -113,29 +129,35 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["USER_INFORMATION"]),
+
     isAddButtonDisabled() {
       if (!this.user.email) return true;
       else if (!this.user.password) return true;
+      else if (this.passwordSecond != this.user.password) return true;
       else return false;
     },
   },
   methods: {
+    ...mapActions(["GET_USER_INFORMATION_FROM_DB"]),
+
     save() {
         this.user._id = userService.getUserId(this);
-       userService.saveUser(this, this.user);
-        this.user.first_name = '';
-      this.user.last_name = '';
-      this.user.email = '';
-       this.user.password = '';
-       this.user.passwordSecond ='';
+        userService.saveUser(this, this.user).then(() => {
+          this.user.password = '';
+          this.passwordSecond ='';
+        })
     },
   },
   mounted() {
-      userService.getUser(this).then(({data}) => {
-    this.user.first_name = data.user.first_name;
-      this.user.last_name = data.user.last_name;
-      this.user.email = data.user.email;
-        })
+    this.GET_USER_INFORMATION_FROM_DB(this).then(() => {
+      this.user.first_name = this.USER_INFORMATION.first_name;
+      this.user.last_name = this.USER_INFORMATION.last_name;
+      this.user.email = this.USER_INFORMATION.email;
+      if(this.USER_INFORMATION.phone_number != ''){
+        this.user.phone_number = this.USER_INFORMATION.phone_number;
+      }
+    })
   },
 };
 </script>

@@ -1,6 +1,5 @@
 import Axios from 'axios'
 import router from '../router/index'
-import api from './api'
 const config = require('../../server/config/config.json')
 
 export default {
@@ -65,9 +64,5 @@ export default {
 
   getAuthenticationHeader (context) {
     return `Bearer ${context.$cookie.get('token')}`
-  },
-
-  saveAdmin(admin, context){
-    api.post('save-admin', admin, { headers: { 'Authorization': this.getAuthenticationHeader(context) }})
   }
 }

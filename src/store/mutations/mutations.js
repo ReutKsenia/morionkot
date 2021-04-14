@@ -19,17 +19,32 @@ export default {
             state.item.push(item);
         }
     },
+    SET_CURRENT_ORDER: (state,  currentOrder) => {
+        state.currentOrder = currentOrder;
+    },
     SET_ADMIN: (state, admin) => {
         state.admin = admin;
+    },
+    SET_ADMIN_INFORMATION_TO_STATE: (state, adminInformation) => {
+        state.adminInformation = adminInformation;
     },
     SET_MANAGER: (state, manager) => {
         state.manager = manager;
     },
+    SET_MANAGER_INFORMATION_TO_STATE: (state, managerInformation) => {
+        state.managerInformation = managerInformation;
+    },
     SET_COURIER: (state, courier) => {
         state.courier = courier;
     },
+    SET_COURIER_INFORMATION_TO_STATE: (state, courierInformation) => {
+        state.courierInformation = courierInformation;
+    },
     SET_USER: (state, user) => {
         state.user = user;
+    },
+    SET_USER_INFORMATION_TO_STATE: (state, userInformation) => {
+        state.userInformation = userInformation;
     },
     REMOVE_FROM_CART: (state, index) => {
         state.cart.splice(index, 1)
@@ -57,7 +72,19 @@ export default {
     SET_ORDERS_EXECUTED_FOR_MANAGER_TO_STATE: (state, ordersExecutedForManager) => {
         state.ordersExecutedForManager = ordersExecutedForManager.orders
     },
+    SET_ORDERS_UNEXECUTED_FOR_COURIER_TO_STATE: (state, ordersUnexecutedForCourier) => {
+        state.ordersUnexecutedForCourier = ordersUnexecutedForCourier.orders
+    },
+    SET_ORDERS_EXECUTED_FOR_USER_TO_STATE: (state, ordersExecutedForUser) => {
+        state.ordersExecutedForUser = ordersExecutedForUser.orders
+    },
+    SET_ORDERS_UNEXECUTED_FOR_USER_TO_STATE: (state, ordersUnexecutedForUser) => {
+        state.ordersUnexecutedForUser = ordersUnexecutedForUser.orders
+    },
     SET_ALL_COURIERS_TO_STATE: (state, allCouriers) => {
         state.allCouriers = allCouriers.couriers
+    },
+    SET_ALL_MANAGERS_TO_STATE: (state, allManagers) => {
+        state.allManagers = allManagers.managers
     }
 }

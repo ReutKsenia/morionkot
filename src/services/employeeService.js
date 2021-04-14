@@ -1,7 +1,6 @@
 //const config = require('../../server/config/config.json')
 
 import auth from './authService'
-//import authUser from './userService'
 import api from './api'
 
 //import Axios from 'axios'
@@ -12,31 +11,43 @@ export default {
     return api().post('save-admin', admin, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
   },
 
+  getAdminInformation(context) {
+    return api().get('get-admin-information', { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
+  },
+
+  saveManager(manager, context) {
+    return api().post('save-manager', manager, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
+  },
+
+  getManagerInformation(context) {
+    return api().get('get-manager-information', { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
+  },
+
+  saveCourier(courier, context) {
+    return api().post('save-courier', courier, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
+  },
+
+  getCourierInformation(context) {
+    return api().get('get-courier-information', { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
+  },
+
   getAllCouriers(context) {
     return api().get('all-couriers', { headers: { 'Authorization': auth.getAuthenticationHeader(context) }})
-  }
+  },
 
-//   add(order, cart, context) {
-//    return Axios.post(`http://localhost:${config.port}/addOrder`, {Order: order, Cart: cart, User: authUser.getUserId(context)})
-//   },
+  getAllManagers(context) {
+    return api().get('all-managers', { headers: { 'Authorization': auth.getAuthenticationHeader(context) }})
+  },
 
-//   fetchOrdersUnexecuted(context) {
-//     return api().get('orders-unexecuted', { headers: { 'Authorization': auth.getAuthenticationHeader(context) }})
-//   },
+  changeCourier(order, courier, context) {
+    return api().post('change-courier', {order: order, courier: courier}, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
+  },
 
-//   fetchOrdersExecuted(context) {
-//     return api().get('orders-executed', { headers: { 'Authorization': auth.getAuthenticationHeader(context) }})
-//   },
+  deleteManager(manager, context) {
+    return api().post('delete-manager', manager, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
+  },
 
-//   changeStatusOrder(order, context) {
-//     return api().post('change-status-order', order, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
-//   },
-
-//   deleteOrder(order, context) {
-//     return api().post('delete-order', order, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
-//   },
-
-//   getProductsFromCart(order) {
-//     return api().post('product-from-cart', order)
-//   }
+  deleteCourier(courier, context) {
+    return api().post('delete-courier', courier, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
+  },
 }

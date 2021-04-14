@@ -9,6 +9,9 @@ export default {
     GET_ITEM({commit}, item){
         commit('SET_ITEM', item)
     },
+    GET_CURRENT_ORDER({commit}, currentOrder){
+        commit('SET_CURRENT_ORDER', currentOrder)
+    },
     GET_ADMIN({commit}, admin){
         commit('SET_ADMIN', admin)
     },

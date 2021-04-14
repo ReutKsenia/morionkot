@@ -24,8 +24,9 @@ export default {
 
   signup (context, credentials, redirect) {
     Axios.post(`http://localhost:${config.port}/registration-user`, credentials)
-        .then(({data: {token}}) => {
-          context.$cookie.set('token', token, '1D')
+        .then(({data}) => {
+          context.$cookie.set('token', data.token, '1D')
+          context.$cookie.set('user_id', data.user._id, '1D')
           context.validSignUp = true
           this.user.authenticated = true
           
@@ -44,7 +45,7 @@ export default {
   },
 
   checkAuthentication (context) {
-    const token = context.$cookie.get('token')
+    const token = context.$cookie.get('user_id')
     
     if (token) return this.user.authenticated = true
     else return this.user.authenticated = false
@@ -56,7 +57,7 @@ export default {
   },
 
   getUser(context){
-    return Axios.post(`http://localhost:${config.port}/get-user`, { user_id: this.getUserId(context)}, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }})
+    return Axios.post(`http://localhost:${config.port}/get-user-information`, { user_id: this.getUserId(context)}, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }})
   },
   
   saveUser(context, user){
