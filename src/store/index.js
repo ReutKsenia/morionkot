@@ -28,6 +28,7 @@ export default new Vuex.Store({
       sum: Number,
       productsCategory: [],
       comments: [],
+      answers: [],
       productsFromCategory: [],
       ordersUnexecutedForManager: [],
       ordersExecutedForManager: [],

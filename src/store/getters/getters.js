@@ -46,6 +46,9 @@ export default {
     COMMENTS(state){
         return state.comments;
     },
+    ANSWERS(state){
+        return state.answers;
+    },
     PRODUCTS_FROM_CATEGORY(state){
         return state.productsFromCategory;
     },

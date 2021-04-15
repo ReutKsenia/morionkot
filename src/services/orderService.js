@@ -50,5 +50,9 @@ export default {
 
   receivedOrder(context, order) {
     return api().post('received-order', order, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }})
+  },
+
+  cancelOrder(context, order) {
+    return api().post('cancel-order', order, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }})
   }
 }

@@ -5,6 +5,7 @@ const express = require('express'),
       mongoose = require('mongoose'),
       config = require('./config/config.json'),
       comments = require('./models/comment'),
+      answers = require('./models/answer'),
       passport = require('passport'),
       passportConfig = require('./config/passport')(passport)
 
@@ -29,7 +30,21 @@ io.on('connection', (socket) => {
   socket.on("comment", (comment) => {
     comments(comment).save()
     io.emit("comment", comment)
-  })
+  });
+  socket.on("answer", (answer) => {
+    answers(answer).save()
+    io.emit("answer", answer)
+  });
+  socket.on("delete-comment", (comment, answer) => {
+    comments(comment).remove().then(() => {
+      if(answer) {
+        for(let i=0; i<answer.length; i++){
+          answers(answer[i]).remove()
+        }
+      }
+    })
+    io.emit("delete-comment")
+  });
 });
 
 mongoose.Promise = global.Promise

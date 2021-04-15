@@ -3,7 +3,7 @@
     <h1>Текущие заказы</h1>
     <v-data-table :headers="headers" :items="ORDERS_UNEXECUTED_FOR_USER" class="elevation-1">
       <template v-slot:[`item.status`]="{ item }">
-        <v-btn  @click="setCurrentOrder(item)" :ripple="false" color="deep-purple darken-1">Посмотреть</v-btn>
+        <v-btn  @click="setCurrentOrder(item)" :ripple="false" color="deep-purple darken-1" style="color: white">Посмотреть</v-btn>
         </template>
         <template v-slot:[`item.order_id.courier_id.name`]="{ item }">
           <div v-if="item.order_id.courier_id">{{item.order_id.courier_id.name}}</div>
@@ -13,7 +13,7 @@
         <template v-slot:[`item.actions`]="{ item }">
           <v-dialog v-model="dialog" scrollable :retain-focus="false">
             <template v-slot:activator="{ on }">
-              <v-icon small @click="getProducts(item.order_id)" v-on="on">visibility</v-icon>
+              <v-icon @click="getProducts(item.order_id)" v-on="on">visibility</v-icon>
             </template>
             <v-card>
               <v-data-table :headers="headersProducts" :items="expanded" class="elevation-1"></v-data-table>
@@ -22,6 +22,30 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+        </template>
+        <template v-slot:[`item.cancel`]="{ item }">
+        <v-dialog v-model="dialog2" max-width="300">
+        <template v-slot:activator="{ on }">
+          <v-icon @click="dialog2 = true" v-on="on">delete</v-icon>
+        </template>
+        <v-card>
+          <v-card-title class="headline" style="display: block"
+            >Вы уверены, что хотите отменить заказ?</v-card-title
+          >
+          <v-divider></v-divider>
+          <v-card-actions class="justify-space-between">
+            <v-spacer></v-spacer>
+            <v-btn 
+            style="color: white"
+            color="deep-purple darken-1" @click="cancelOrder(item)"
+              >Да</v-btn
+            >
+        <v-btn text @click="dialog2 = false">
+          Нет
+        </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
         </template>
       </v-data-table>
   </div>
@@ -88,6 +112,12 @@ export default {
       this.GET_CURRENT_ORDER(item).then(() => {
         router.push('/current');
       }) 
+    },
+
+    cancelOrder(item){
+      orderService.cancelOrder(this, item).then(() => {
+        this.GET_ORDERS_UNEXECUTED_FOR_USER_FROM_DB(this);
+      })
     }
   },
   mounted() {

@@ -51,6 +51,17 @@ export default {
             return error;
         })
     },
+    GET_ANSWERS_FROM_DB({commit}){
+        return CommentsService.fetchAnswers()
+        .then((answers) => {
+            commit('SET_ANSWERS_TO_STATE', answers.data);
+            return answers;
+        })
+        .catch((error) => {
+            console.log(error);
+            return error;
+        })
+    },
     GET_ORDERS_UNEXECUTED_FOR_MANAGER_FROM_DB({commit}, context){
         return OrdersService.fetchOrdersUnexecutedForManager(context)
         .then((ordersUnexecutedForManager) => {

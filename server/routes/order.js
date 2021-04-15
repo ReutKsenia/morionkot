@@ -263,6 +263,23 @@ router.post('/received-order', function (req, res, next) {
   })(req, res, next);
 });
 
+router.post('/cancel-order', function (req, res, next) {
+  passport.authenticate('userStrategy', config.session, function (err, user) {
+    if (user) {
+      OrderStatus.updateOne({ _id: req.body._id }, { $set: { canceled: true } }, (err) => {
+        if (err) {
+          res.sendStatus(400)
+        }
+        else {
+          res.sendStatus(200)
+        }
+      })
+    } else {
+      return res.sendStatus(401); 
+    }
+  })(req, res, next);
+});
+
 router.post('/product-from-cart', order.productsFromCart(Cart))
 
 module.exports = router;

@@ -63,6 +63,9 @@ export default {
     SET_COMMENTS_TO_STATE: (state, comments) => {
         state.comments = comments.comments;
     },
+    SET_ANSWERS_TO_STATE: (state, answers) => {
+        state.answers = answers.answers;
+    },
     SET_PRODUCTS_FROM_CATEGORY_TO_STATE: (state, products) => {
         state.productsFromCategory = products.products
     },
