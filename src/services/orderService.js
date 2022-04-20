@@ -36,6 +36,10 @@ export default {
     return api().post('change-status-order', order, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
   },
 
+  changeStatusOrderCourier(order, context) {
+    return api().post('change-status-order-courier', order, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
+  },
+
   deleteOrderForManager(order, context) {
     return api().post('delete-order-for-manager', order, { headers: { 'Authorization': auth.getAuthenticationHeader(context) }});
   },

@@ -45,14 +45,14 @@ export default {
     ]),
 
     addnewCategory(){
-      productService.newCategory(this.newCategory).then(() => {
+      productService.newCategory(this.newCategory, this).then(() => {
         this.GET_CATEGORY_FROM_DB();
          this.newCategory = '';
       })
     },
 
     deleteCategory(category) {
-      productService.deleteCategory(category).then(() => {
+      productService.deleteCategory(category, this).then(() => {
         this.GET_CATEGORY_FROM_DB();
       })
     }

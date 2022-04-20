@@ -1,5 +1,6 @@
 {
     "port": 3000,
+    "clientPort": "http://localhost:8080",
     "mongoose": {
         "uri": "mongodb+srv://marion:fcThvVwYS61tVZab@firstcluster-il34t.mongodb.net/cake_shop?retryWrites=true&w=majority",
         "dbOptions": { 
@@ -7,5 +8,7 @@
         }
     },
     "secret": "This is secret",
-    "session": { "session": false }
+    "session": { "session": false },
+    "emailAddress": "kotmorion@gmail.com",
+    "emailPass": "morionkot17042021"
 }

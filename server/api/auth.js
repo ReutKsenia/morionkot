@@ -1,5 +1,4 @@
-const mongoose = require('mongoose'),
-      jwt = require('jsonwebtoken'),
+const jwt = require('jsonwebtoken'),
       config = require('../config/config.json');
 
 const api = {};

@@ -22,6 +22,28 @@ export default {
       })
   },
 
+  forgotPassword (context, email) {
+    Axios.post(`http://localhost:${config.port}/user-forgot-password`, {email: email})
+    .then(({data}) => {
+        context.snackbar = true
+        context.message = data.message
+    }).catch(({response: {data}}) => {
+      context.snackbar = true
+      context.message = data.message
+    })
+  },
+
+  resetPassword (context, newPassword, token) {
+    Axios.post(`http://localhost:${config.port}/user-reset-password`, {newPassword: newPassword, resetPasswordToken: token})
+    .then(({data}) => {
+        context.snackbar = true
+        context.message = data.message
+    }).catch(({response: {data}}) => {
+      context.snackbar = true
+      context.message = data.message
+    })
+  },
+
   signup (context, credentials, redirect) {
     Axios.post(`http://localhost:${config.port}/registration-user`, credentials)
         .then(({data}) => {

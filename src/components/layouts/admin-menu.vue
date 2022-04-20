@@ -25,19 +25,20 @@
         <v-navigation-drawer v-model="drawer" absolute temporary>
           <v-list nav dense>
             <v-list-item-group active-class="deep-purple--text text--accent-4">
-              <!-- <v-list-item to="/admin-orders">
+
+              <v-list-item to="/admin-products">
                 <v-list-item-icon>
-                  <v-icon>format_list_bulleted</v-icon>
+                  <v-icon>collections</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>Заказы</v-list-item-title>
+                <v-list-item-title>Товары</v-list-item-title>
               </v-list-item>
 
-              <v-list-item to="/admin-archive">
+              <v-list-item to="/product-category">
                 <v-list-item-icon>
-                  <v-icon>book</v-icon>
+                  <v-icon>library_add_chek</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>Архив</v-list-item-title>
-              </v-list-item> -->
+                <v-list-item-title>Категории товаров</v-list-item-title>
+              </v-list-item>
 
               <v-list-item to="/admin-managers">
                 <v-list-item-icon>
@@ -53,26 +54,13 @@
                 <v-list-item-title>Курьеры</v-list-item-title>
               </v-list-item>
 
-              <v-list-item to="/product-category">
-                <v-list-item-icon>
-                  <v-icon>library_add_chek</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>Категории товаров</v-list-item-title>
-              </v-list-item>
-
-              <v-list-item to="/admin-products">
-                <v-list-item-icon>
-                  <v-icon>collections</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>Товары</v-list-item-title>
-              </v-list-item>
-
               <v-list-item to="/admin-settings">
                 <v-list-item-icon>
                   <v-icon>settings</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>Настройки</v-list-item-title>
               </v-list-item>
+              
             </v-list-item-group>
           </v-list>
         </v-navigation-drawer>

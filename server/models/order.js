@@ -5,6 +5,7 @@ const Order = new Schema({
     delivery_date: String,
     cost: Number,
     delivery_adress: String,
+    time: String,
     phone_number: String,
     payment_method: String,
     comment: String,

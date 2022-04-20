@@ -18,4 +18,34 @@ api.upload = multer({
       })
     })
 
+    api.getProducts = (Product) => (req, res) => {
+        Product.find({}, (err, products) => {
+            if (err) {
+              res.sendStatus(500)
+            } else {
+              res.send({ products: products })
+            }
+          });
+    }
+
+    api.getProductCategories = (ProductCategory) => (req, res) => {
+        ProductCategory.find({}, (err, productsCategory) => {
+            if (err) {
+              res.sendStatus(500)
+            } else {
+              res.send({ productsCategory: productsCategory })
+            }
+          });
+    }
+
+    api.getProductsFromCategory = (ProductCategory) => (req, res) => {
+        ProductCategory.findOne({ category_name: req.body.categoryName }).populate('product_id').exec(function (err, post) {
+            if (err) {
+              res.sendStatus(500)
+            }
+            else {
+              res.send({ products: post.product_id });
+            }
+          })
+    }
 module.exports = api;

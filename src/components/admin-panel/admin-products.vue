@@ -4,7 +4,7 @@
             <h1>Список товаров</h1>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                    <v-btn icon v-on="on" to="/add-product">
+                    <v-btn icon v-on="on" to="/add-product" style="margin: 1%">
                         <v-icon x-large>add</v-icon>
                     </v-btn>
                 </template>
@@ -14,7 +14,13 @@
             <v-card 
             class="products_list_item"
             v-for="product in PRODUCTS"
-            :key="product._id">
+            :key="product._id"
+            style="
+              flex-basis: 25%;
+              padding: 16px;
+              margin-bottom: 16px;
+              box-shadow: 0 0 8px 0 #e0e0e0;
+            ">
                 <v-img contain="true"
                 :src=" require('../../../server/static/images/' + product.image[0])"
                 height="200px"
@@ -65,7 +71,7 @@ export default {
         ]),
         deleteItem(data) {
             this.GET_ITEM(data);
-            productsService.deleteProduct(this.ITEM[0]).then(() => {
+            productsService.deleteProduct(this.ITEM[0], this).then(() => {
                 this.GET_PRODUCTS_FROM_DB();
             }
             );  

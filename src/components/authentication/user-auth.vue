@@ -34,6 +34,9 @@
         <a style="color: #524b98" @click="signUpVisible = true"
           >Зарегистрироваться</a
         >
+        <div>
+        <router-link style="color: #524b98"  to="/user-forgot-password">Забыли пароль?</router-link>
+        </div>
       </v-form>
     </div>
     <div class="l-signup-user" v-else>

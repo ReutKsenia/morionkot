@@ -29,6 +29,8 @@ import courierSettings from '../components/courier-panel/courier-settings'
 import orderHistory from '../components/user/order-history'
 import currentOrders from '../components/user/current-orders'
 import current from '../components/user/current'
+import userForgotPassword from '../components/forgot-password/user-forgot-password'
+import userResetPassword from '../components/forgot-password/user-reset-password'
 import * as Auth from '../services/authService'
 
 Vue.use(VueRouter)
@@ -88,6 +90,17 @@ Vue.use(VueRouter)
     path: '/comments',
     name: 'comments',
     component: comments
+  },
+  {
+    path: '/user-forgot-password',
+    name: 'userForgotPassword',
+    component: userForgotPassword
+  },
+  {
+    path: '/reset/:token',
+    name: 'userResetPassword',
+    component: userResetPassword,
+    props: true
   },
   {
     path: '/admin-managers',
@@ -216,6 +229,8 @@ Vue.use(VueRouter)
 ]
 
 const router = new VueRouter({
+  hashbang: false,
+  mode: 'history',
   routes
 })
 

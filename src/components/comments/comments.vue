@@ -3,7 +3,7 @@
     <v-container>
       <h1>Отзывы покупателей</h1>
       <v-form @submit.prevent="sendComment">
-        <h4>Оставьте отзыв</h4>
+        <h4 style="margin: 1%">Оставьте отзыв</h4>
         <v-text-field v-model="username" label="Введите ваше имя" filled color="deep-purple" :rules="rules.required"/>
         <v-text-field v-model="comment" label="Отзыв" filled color="deep-purple" :rules="rules.required"/>
         <v-btn type="submit" color="#524b98" style="color:white" :disabled="!comment">Отправить</v-btn>

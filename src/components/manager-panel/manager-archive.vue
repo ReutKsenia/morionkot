@@ -9,7 +9,12 @@
           <v-simple-checkbox v-model="item.sent_to_courier" @click="changeStatus(item)" :ripple="false"></v-simple-checkbox>
         </template>
         <template v-slot:[`item.delivered`]="{ item }">
-          <v-simple-checkbox v-model="item.delivered" :ripple="false"></v-simple-checkbox>
+          <!-- <v-simple-checkbox v-model="item.delivered" :ripple="false"></v-simple-checkbox> -->
+          <div v-if="item.order_id.way_of_reception == 'Курьером'">
+          <div v-if="item.delivered == true">Доставлен</div>
+          <div v-else-if="item.delivered == false">Не доставлен</div>
+          </div>
+          <div v-else></div>
         </template>
         <template v-slot:[`item.canceled`]="{ item }">
           <v-simple-checkbox v-model="item.canceled" @click="changeStatus(item)" :ripple="false"></v-simple-checkbox>
@@ -92,6 +97,7 @@ export default {
         { text: "Имя заказчика", value: "order_id.customer_name", sortable: false },
         { text: "Номер", value: "order_id.phone_number", sortable: false },
         { text: "Адрес", value: "order_id.delivery_adress", sortable: false },
+        { text: "Время", value: "order_id.time", sortable: false },
         {
           text: "Способ получения",
           value: "order_id.way_of_reception",

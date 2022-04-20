@@ -26,5 +26,6 @@ export default {
 <style lang="scss">
 .delivery-content {
     text-align: start;
+    margin: 4%;
 }
 </style>

@@ -30,7 +30,7 @@ export default {
   },
 
   signup (context, credentials, redirect) {
-    Axios.post(`http://localhost:${config.port}/registration`, credentials)
+    return Axios.post(`http://localhost:${config.port}/registration`, credentials)
         .then(({data}) => {
           context.$cookie.set('token', data.token, '1D')
           context.validSignUp = true

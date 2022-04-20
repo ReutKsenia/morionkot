@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div v-if="CART.length">
+    <div v-if="CART.length" style="margin-top: 8%; margin-bottom: 8%;">
       <v-data-table :headers="headers" :items="CART" class="elevation-2" hide-default-footer>
         <template v-slot:body="{items}">
           <tbody>
@@ -143,5 +143,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.cart-div {
+  margin: 5%;
+}
 </style>

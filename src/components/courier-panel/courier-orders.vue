@@ -79,6 +79,7 @@ export default {
         { text: "Имя заказчика", value: "order_id.customer_name", sortable: false },
         { text: "Номер", value: "order_id.phone_number", sortable: false },
         { text: "Адрес", value: "order_id.delivery_adress", sortable: false },
+        { text: "Время", value: "order_id.time", sortable: false },
         { text: "Способ оплаты", value: "order_id.payment_method", sortable: false },
         { text: "Сумма", value: "order_id.cost", sortable: false },
         { text: "Коментарии", value: "order_id.comment", sortable: false },
@@ -116,7 +117,6 @@ export default {
     },
     
     changeStatus(item){
-        console.log(item);
         orderService.changeStatusOrderCourier(item, this).then( () => {
           this.GET_ORDERS_UNEXECUTED_FOR_COURIER_FROM_DB(this);
       })

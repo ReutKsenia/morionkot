@@ -10,10 +10,12 @@ const User = Schema({
   password: {
     type: String,
     required: true
-  },
+  }, 
   first_name: String,
   last_name: String,
-  phone_number: String
+  phone_number: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 
 User.pre('save', function (next) {

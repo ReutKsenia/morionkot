@@ -31,7 +31,7 @@
             color="deep-purple"
             style="min-height: 5%"
           ></v-select>
-          <p class="order_headers">Дата доставки заказа</p>
+          <p class="order_headers">Дата доставки или самовывоза заказа</p>
           <v-menu
             v-model="menu"
             :close-on-content-click="false"
@@ -60,17 +60,67 @@
             ></v-date-picker>
           </v-menu>
           <div v-if="details.way_of_reception == 'Курьером'">
-          <p class="order_headers">
-            Адрес доставки (заполгяется при доставке курьером)
-          </p>
+          <h3 class="order_headers">
+            Адрес доставки
+          </h3>
+          <p class="order_headers">Улица</p>
           <v-text-field
-            v-model="details.delivery_adress"
-            label="Улица, номер дома/корпус, номер квартиры"
+            v-model="street"
+            label="Например: ул. Солнечная"
+            filled
+            color="deep-purple"
+            style="min-height: 5%"
+          ></v-text-field>
+          <p class="order_headers">Номер дома/корпус</p>
+          <v-text-field
+            v-model="house_number"
+            label="Например: д. 82а"
+            filled
+            color="deep-purple"
+            style="min-height: 5%"
+          ></v-text-field>
+          <p class="order_headers">Номер квартиры</p>
+          <v-text-field
+            v-model="apartment_number"
+            label="Например: кв. 18"
             filled
             color="deep-purple"
             style="min-height: 5%"
           ></v-text-field>
           </div>
+          <p class="order_headers">Время доставки или самовывоза заказа</p>
+          <v-menu
+            v-model="menu1"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            style="min-height: 5%"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="details.time"
+                filled
+                label="Выберете предпочитаемое время"
+                append-icon="timer"
+                readonly
+                color="deep-purple"
+                :rules="rules.required"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-time-picker
+        v-model="details.time"
+        color="deep-purple"
+        class="mt-4"
+        format="24hr"
+        scrollable
+        elevation="15"
+        min="9:00"
+        max="23:00"
+        @input="menu1 = false"
+      ></v-time-picker>
+          </v-menu>
           <h3 class="order_headers">Оплата (при получении)</h3>
           <v-select
             v-model="details.payment_method"
@@ -166,17 +216,22 @@ export default {
   props: {},
   data() {
     return {
+      street: "",
+      house_number: "",
+      apartment_number: "",
       details: {
         customer_name: "",
         phone_number: "",
         way_of_reception: "",
         delivery_adress: "",
+        time: "",
         delivery_date: "",
         cost: this.SUM,
         status: false,
         payment_method: "",
         comment: ""
       },
+      
       rules: {
         phone_number: [
           (v) =>
@@ -197,6 +252,7 @@ export default {
       if (!this.details.phone_number) return true;
       else if (!this.details.way_of_reception) return true;
       else if (!this.details.delivery_date) return true;
+      else if (!this.details.time) return true;
       else if (!this.details.payment_method) return true;
       else return false;
     },
@@ -208,11 +264,21 @@ export default {
   methods: {
     ...mapActions(["GET_USER_INFORMATION_FROM_DB"]),
     addOrder() {
+      if(this.details.way_of_reception == 'Курьером')
+      {
+        this.details.delivery_adress = "";
+      }
+      else{
+        this.details.delivery_adress = this.street + ", " + this.house_number + " " + this.apartment_number;
+      }
       this.details.cost = this.SUM;
       AddOrder.add(this.details, this.CART, this).then(() => {
         this.details.way_of_reception = "";
-        this.details.delivery_adress = "";
+        this.street = "";
+        this.house_number = "";
+        this.apartment_number = "";
         this.details.delivery_date = "";
+        this.time = "";
         this.details.payment_method = "";
         this.details.comment = "";
       });
@@ -220,10 +286,13 @@ export default {
   },
   mounted(){
     this.GET_USER_INFORMATION_FROM_DB(this).then(() => {
-      this.details.customer_name = this.USER_INFORMATION.first_name + " " + this.USER_INFORMATION.last_name;
+      if(Object.keys(this.USER_INFORMATION).length){
+       this.details.customer_name = this.USER_INFORMATION.first_name + " " + this.USER_INFORMATION.last_name;
       if(this.USER_INFORMATION.phone_number != ''){
         this.details.phone_number = this.USER_INFORMATION.phone_number;
       }
+      }
+
     })
   }
 };

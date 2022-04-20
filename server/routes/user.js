@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+const userController = require('../api/user');
 const passport = require('passport'),
       config = require('../config/config.json')
 
-router.post('/get-user-information', function(req, res, next) {
+router.post('/get-user-information', function getUserInfo(req, res, next) {
     passport.authenticate('userStrategy', config.session, function(err, user) {
       if (user){
           User.findById(req.body.user_id, function (err, user) {
@@ -17,7 +20,7 @@ router.post('/get-user-information', function(req, res, next) {
     })(req, res, next);
   });
 
-  router.post('/save-user', function(req, res, next) {
+  router.post('/save-user', function saveUser(req, res, next) {
     passport.authenticate('userStrategy', config.session, function(err, user) {
       if (user){
             User.updateOne({ _id: req.body._id}, {$set: { first_name: req.body.first_name, last_name: req.body.last_name,
@@ -35,5 +38,9 @@ router.post('/get-user-information', function(req, res, next) {
       }
     })(req, res, next);
   });
+
+  router.post('/user-forgot-password', userController.userForgotPassword(User));
+
+  router.post('/user-reset-password', userController.userResetPassword(User));
 
 module.exports = router;

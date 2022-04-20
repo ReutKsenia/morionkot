@@ -18,7 +18,7 @@
                 <v-select
                 :items="ITEM[0].weight"
                 v-model="selectedWeight"
-                label="Выберете вес"
+                label="Выберете вес (в граммах)"
                 color="#d1ab7f"
                 dense
                 outlined

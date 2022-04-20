@@ -14,7 +14,7 @@
         ></v-text-field>
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on" @click="addField">
+            <v-btn icon v-on="on" @click="addField" style="margin-bottom: 2%">
               <v-icon x-large>add</v-icon>
             </v-btn>
           </template>
@@ -23,14 +23,14 @@
         <v-row v-for="i in countField" :key="i">
           <v-col>
             <v-row>
-              <h3 class="product_headers">Вес:</h3>
-              <v-text-field v-model="newProduct.weight[i-1]" filled color="deep-purple"></v-text-field>
+              <h3 class="product_headers">Вес (g):</h3>
+              <v-text-field v-model="newProduct.weight[i-1]" filled color="deep-purple" :rules="rules.required"></v-text-field>
             </v-row>
           </v-col>
           <v-col>
             <v-row>
               <h3 class="product_headers">Цена:</h3>
-              <v-text-field v-model.number="newProduct.price[i-1]" filled color="deep-purple"></v-text-field>
+              <v-text-field v-model.number="newProduct.price[i-1]" filled color="deep-purple" :rules="rules.required"></v-text-field>
             </v-row>
           </v-col>
           <v-col>
@@ -50,6 +50,7 @@
         <v-textarea
           v-model="newProduct.description"
           label="Добавьте описание"
+          :rules="rules.required"
           filled
           color="deep-purple"
           style="min-height: 5%"
@@ -60,6 +61,7 @@
           :items="categoryName"
           @click="getCategory()"
           label="Выберите категорию"
+          :rules="rules.required"
           filled
           color="deep-purple"
           style="min-height: 5%"
@@ -222,7 +224,7 @@ export default {
     },
 
     saveProduct() {
-      productsService.addProduct(this.newProduct).then(() => {
+      productsService.addProduct(this.newProduct, this).then(() => {
         this.newProduct.name = '';
         this.newProduct.price = [];
         this.newProduct.weight = [];

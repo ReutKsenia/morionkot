@@ -66,6 +66,7 @@ export default {
         },
         { text: "Номер", value: "order_id.phone_number", sortable: false },
         { text: "Адрес", value: "order_id.delivery_adress", sortable: false },
+        { text: "Время", value: "order_id.time", sortable: false },
         {
           text: "Способ получения",
           value: "order_id.way_of_reception",

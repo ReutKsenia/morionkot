@@ -56,6 +56,7 @@ export default {
     ...mapActions(["GET_USER"]),
     exit() {
       this.GET_USER(false);
+      
       AuthenticationRegistration.exit(this, "/user-auth");
     },
   },

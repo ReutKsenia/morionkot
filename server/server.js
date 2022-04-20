@@ -7,7 +7,8 @@ const express = require('express'),
       comments = require('./models/comment'),
       answers = require('./models/answer'),
       passport = require('passport'),
-      passportConfig = require('./config/passport')(passport)
+      passportConfig = require('./config/passport')(passport),
+      session = require('express-session')
 
 const app = express();
 let http = require('http').Server(app);
@@ -17,7 +18,9 @@ let io = require('socket.io')(http);
 app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session({ secret: 'super secret' }));
 app.use(passport.initialize());
+app.use(passport.session())
 app.use(cors());
 app.use(require('./routes/product'));
 app.use(require('./routes/auth'));

@@ -14,7 +14,7 @@
                     ></v-text-field>
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
-                            <v-btn icon v-on="on" @click="addField">
+                            <v-btn icon v-on="on" @click="addField" style="margin-bottom: 2%">
                                 <v-icon x-large>add</v-icon>
                             </v-btn>
                         </template>
@@ -218,12 +218,12 @@ export default {
     },
 
     chageProduct() {
-        productsService.changeProduct(this.newProduct);
+        productsService.changeProduct(this.newProduct, this);
         console.log('change')
     },
     
     deleteImage(image){
-        productsService.deleteImage(image, this.newProduct._id);
+        productsService.deleteImage(image, this.newProduct._id, this);
     }
 
     },

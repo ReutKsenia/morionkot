@@ -175,8 +175,8 @@
         })
         }
         else{
-          this.snackbar = true;
-          this.message = 'Выберете один из вариантов (админ, менеджер, курьер)';
+          // this.snackbar = true;
+          // this.message = 'Выберете один из вариантов (админ, менеджер, курьер)';
         }
       },
       submitSignUp() {
@@ -205,8 +205,8 @@
         }
         }
         else{
-          this.snackbar = true;
-          this.message = 'Проверьте правильность паролей'
+          // this.snackbar = true;
+          // this.message = 'Проверьте правильность паролей'
         }
       }
     }

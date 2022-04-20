@@ -3,10 +3,9 @@ const auth = require('./auth');
 const api = {};
 
 api.addOrder = (order, cart, orderStatus) => (req, res) => {
-    console.log(req.body.User)
     if(req.body.User){
         order.create({delivery_date: req.body.Order.delivery_date,
-            cost: req.body.Order.cost, delivery_adress: req.body.Order.delivery_adress,
+            cost: req.body.Order.cost, delivery_adress: req.body.Order.delivery_adress, time: req.body.Order.time,
             phone_number: req.body.Order.phone_number, payment_method: req.body.Order.payment_method, comment: req.body.Order.comment,
             status: req.body.Order.status, way_of_reception: req.body.Order.way_of_reception,
             customer_name: req.body.Order.customer_name, user_id: req.body.User, courier_id: null} , function(err, or){
@@ -28,7 +27,7 @@ api.addOrder = (order, cart, orderStatus) => (req, res) => {
     }
     else{
         order.create({delivery_date: req.body.Order.delivery_date,
-            cost: req.body.Order.cost, delivery_adress: req.body.Order.delivery_adress,
+            cost: req.body.Order.cost, delivery_adress: req.body.Order.delivery_adress, time: req.body.Order.time,
             phone_number: req.body.Order.phone_number, payment_method: req.body.Order.payment_method, comment: req.body.Order.comment,
             status: req.body.Order.status, way_of_reception: req.body.Order.way_of_reception,
             customer_name: req.body.Order.customer_name, user_id: null, courier_id: null}, function(err, or){
@@ -78,24 +77,18 @@ api.productsFromCart = (cart) => (req, res) => {
           res.sendStatus(500)
         }
         else{
-            console.log(products)
-            //res.sendStatus(200)
           res.send({ products: products });
         }
     })
 }
 
 api.changeStatusOrder = (Order) => (req, res) => {
-    console.log('4');
     Order.findAndUpdateOne({ _id: req.body._id }, { $set: { status: req.body.status }}, (err, order) => {
         if(err){
-            console.log('3');
             res.sendStatus(500)
           }
         else{
-            console.log('2');
             res.send({ order: order });
-              //res.sendStatus(200)
         }
     })
 }
