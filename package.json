@@ -22,7 +22,7 @@
     "nodemailer": "^6.5.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
-    "socket.io": "^2.4.1",
+    "socket.io": "^2.5.0",
     "vue": "^2.6.12",
     "vue-cookie": "^1.1.4",
     "vue-router": "^3.4.9",
